@@ -1,3 +1,23 @@
-# Your code goes here.
-# You can delete these comments, but do not change the name of this file
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
+print("\n     __        __   _                            _         ")
+print("     \\ \\      / /__| | ___ ___  _ __ ___   ___  | |_ ___   ")
+print("      \\ \\ /\\ / / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\ | __/ _ \\  ")
+print("       \\ V  V /  __/ | (__ (_) | | | | | |  __/ | |_ (_) | ")
+print(r"        \_/\_/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/  ")
+
+print("\n   ____     _          _   _       _ _                        ")
+print("  / ___|___| | ___ ___| |_(_) __ _| | |__   __ _ _ __   __ _  ")
+print(" | |   / _ \\ |/ _ \\ __| __| |/ _` | | '_ \\ / _` | '_ \\ / _` | ")
+print(r" | |___  __/ |  __\__ \ |_| | (_| | | | | | (_| | | | | (_| | ")
+print(r"  \____\___|_|\___|___/\__|_|\__,_|_|_| |_|\__,_|_| |_|\__, | ")
+print("                                                       |___/  ")
+
+print("     *   '      o           .       +        .         *      ")
+print("   .                    ~+   _______    +     |   '           ")
+print("       .   |       *      .  |     |        - o -        *    ")
+print("    *    - o -               |   + |    .     |      .        ")
+print("           |      .   '      |     |        o              +  ")
+print("      +       ~+           * |     O    *        +    *       ")
+print("   .               *         |  ' /|\\                        ")
+print("          '              +   |    / \\      ~~+      .    *   ")
+print("    *           o         .  |       *             o          ")
+print("                           __|__                              \n")
