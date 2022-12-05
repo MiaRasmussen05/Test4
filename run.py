@@ -2,6 +2,9 @@
 Import
 """
 import time
+import random
+from words import easy_dict, medium_dict, hard_dict
+from hangman import e_lives, m_lives, h_lives
 
 
 def welcome_to():
@@ -19,7 +22,7 @@ def logo():
     """
     Celestial Hang logo
     """
-    print("\n" + r"""     ____     _          _   _       _ _
+    print(r"""     ____     _          _   _       _ _
     / ___|___| | ___ ___| |_(_) __ _| | |__   __ _ _ __   __ _
    | |   / _ \ |/ _ \ __| __| |/ _` | | '_ \ / _` | '_ \ / _` |
    | |___  __/ |  __\__ \ |_| | (_| | | | | | (_| | | | | (_| |
@@ -27,13 +30,13 @@ def logo():
                                                          |___/  """)
 
     print(r"""      *   '      o           .       +         .        *
-     .                   ~+   _______    +     |   '
-        .   |       *      .  |/    |        - o -       +
-     *    - o -               |   + |    .     |      .
-            |      .   '      |     |        o             '
-       +       ~+           * |     O    *        +    *
-     .               *        |  ' /|\        '         .
-            '              +  |    / \   .   ~~+     .    *
+     .                   ~+   __________  +    |   '
+        .   |       *      .  |/       |     - o -       +
+     *    - o -               |   +    | .     |      .
+            |      .   '      |        |     o             '
+       +       ~+           * |        O  *       +    *
+     .               *        |  '    /|\       '         .
+            '              +  |       / \  .   ~~+     .    *
      *           o         .  |       *             o
      '    +    '       *      |    o       *     .      +
      ________________________/|\____________________________""" + "\n")
@@ -94,7 +97,7 @@ def level_difficulty():
                      |  _| / _` / __| | | |
                      | |___ (_| \__ \ |_| |
                      |_____\__,_|___/\__, |
-                                     |___/ """ + "\n")
+                                     |___/ """)
             lives = 5
             return lives
         elif level == "M":
@@ -102,7 +105,7 @@ def level_difficulty():
               |  \/  | ___  __| (_)_   _ _ __ ___
               | |\/| |/ _ \/ _` | | | | | '_ ` _ \
               | |  | |  __/ (_| | | |_| | | | | | |
-              |_|  |_|\___|\__,_|_|\__,_|_| |_| |_|""" + "\n")
+              |_|  |_|\___|\__,_|_|\__,_|_| |_| |_|""")
             lives = 7
             return lives
         elif level == "H":
@@ -110,7 +113,7 @@ def level_difficulty():
                      | | | | __ _ _ __ __| |
                      | |_| |/ _` | '__/ _` |
                      |  _  | (_| | | | (_| |
-                     |_| |_|\__,_|_|  \__,_|""" + "\n")
+                     |_| |_|\__,_|_|  \__,_|""")
             lives = 10
             return lives
         else:
@@ -125,7 +128,29 @@ def choosen():
     print("""
 -----------------------------------------------------------------
         """)
-    print(f"{name} you choose {level} so let's get started!" "\n")
+    print(f"             {name} you choose {level} so let's get started!" "\n")
+
+
+def get_word(words):
+    """
+    Gets and chooses a random word from words file
+    out from which difficulty has been choosen
+    """
+    word_e = random.choice(easy_dict)
+    word_m = random.choice(medium_dict)
+    word_h = random.choice(hard_dict)
+
+    if level == "E":
+        return word_e(words)
+
+    elif level == "M":
+        return word_m(words)
+
+    elif level == "H":
+        return word_h(words)
+
+    else:
+        print("A mistake have happened, try again")
 
 
 def game():
@@ -145,7 +170,8 @@ def main():
     level_difficulty()
     time.sleep(0.5)
     choosen()
-    time.sleep(0.5)
+    time.sleep(0.7)
+    word = get_word(words)
 
 
 main()

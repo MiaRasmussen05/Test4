@@ -1,4 +1,4 @@
-easy = [
+easy_dict = [
     'star',
     'lunar',
     'moon',
@@ -42,7 +42,7 @@ easy = [
     'nebula'
 ]
 
-medium = [
+medium_dict = [
     'heavenly',
     'ethereal',
     'galactic',
@@ -85,33 +85,33 @@ medium = [
     'solstice'
 ]
 
-hard = [
+hard_dict = [
     'interstellar',
     'mythological',
     'extraterrestrial',
-    'celestiral sphere',
+    'celestiralSphere',
     'sagittarius',
     'terrestrial',
-    'celestial mechanics',
-    'solar eclipse',
+    'celestialMechanics',
+    'solarEclipse',
     'astronomical',
-    'hubble telescope',
+    'hubbleTelescope',
     'astronomers',
     'constellation',
-    'ursa major',
-    'north star',
-    'big bang theory',
-    'crescent moon',
-    'black hole',
-    'dwarf planet',
-    'falling star',
-    'meteor shower',
-    'the milky way',
-    'new moon',
-    'shooting star',
-    'solar system',
+    'ursaMajor',
+    'northStar',
+    'bigBangTheory',
+    'crescentMoon',
+    'blackHole',
+    'dwarfPlanet',
+    'fallingStar',
+    'meteorShower',
+    'theMilkyWay',
+    'newMoon',
+    'shootingStar',
+    'solarSystem',
     'spectroscope',
-    'space station',
-    'solar eclipse',
+    'spaceStation',
+    'solarEclipse',
     'weightlessness'
 ]
