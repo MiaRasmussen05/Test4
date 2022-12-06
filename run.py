@@ -110,8 +110,8 @@ def game():
     time.sleep(0.5)
 
     while len(needed_letters) > 0 and lives > 0:
-        print("\nLetters already used: ", ' '.join(sorted(guessed_letters)))
-        print('\nLives left:', lives, )
+        print('\n'"Letters already used: ", ' '.join(sorted(guessed_letters)))
+        print('\n' + 'Lives left:', lives, )
 
         guess = [lett if lett in guessed_letters else '_' for lett in word]
         if level == "E":
@@ -170,15 +170,15 @@ def game():
         print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
         """)
-        print(r"""                            ____________
-                          .-\    _     /-.
-                         | (|   / |    |) |
-                          '-|     |    |-'
-                            \    _|_   /
-                             '.      .'
-                              _`)  (`_
-                            _/________\_
-                           /____________\
+        print(r"""                           ____________
+                         .-\    _     /-.
+                        | (|   / |    |) |
+                         '-|     |    |-'
+                           \    _|_   /
+                            '.      .'
+                             _`)  (`_
+                           _/________\_
+                          /____________\
         """)
         print(f"""
             Congratulations {name} you guessed the word!
@@ -191,7 +191,7 @@ def level_difficulty():
     Choose level difficulty
     """
     print("""
-        Choose one of the three levels to get started...""" + "\n")
+         Choose one of the three levels to get started...""" + "\n")
     time.sleep(0.6)
     print("""                        For easy click E
                         For medium click M
@@ -259,7 +259,7 @@ def game_end():
     That is to bad {name}! Want to try again? yes = y, no = n: """)
     else:
         play = input(f"""
- That is how it is done {name}! Want to try again? yes = y, no = n: """)
+        Yes {name}! Want to try again? yes = y, no = n: """)
 
     while play:
         if play == "y":
