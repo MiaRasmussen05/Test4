@@ -3,6 +3,7 @@ Import
 """
 import time
 import random
+import string
 from words import easy_dict, medium_dict, hard_dict
 from hangman import e_lives, m_lives, h_lives
 
@@ -50,10 +51,10 @@ def welcome_player():
     """
     global name
     name = input("Please enter you name here: ")
-    print("\n" + f"""                            Welcome {name}
+    print("\n" + f"""                          Welcome {name}
                I hope you have fun and good luck!""" + "\n")
     time.sleep(1)
-    print("-----------------------------------------------------------------")
+    print("-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-")
     print("\n" + "                      Here comes the rules..." + "\n")
     time.sleep(1)
     print("1. Try to see if you can guess the celestial themed word" + "\n")
@@ -67,7 +68,122 @@ def welcome_player():
     print("\n" + """4. Remeber choose the difficulty level carefully -
    the higher you go the harder the word is to guess""" + "\n")
     time.sleep(1)
-    print("-----------------------------------------------------------------")
+    print("-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-")
+
+
+def get_word():
+    """
+    Gets and chooses a random word from words file
+    out from which difficulty has been choosen
+    """
+    word_e = random.choice(easy_dict)
+    word_m = random.choice(medium_dict)
+    word_h = random.choice(hard_dict)
+
+    if level == "E":
+        return word_e
+
+    elif level == "M":
+        return word_m
+
+    elif level == "H":
+        return word_h
+
+    else:
+        print("A mistake has happened, try again")
+
+
+def game():
+    """
+    Function for the actul game play
+    """
+    word = get_word()
+    alphabet = set(string.ascii_lowercase)
+    needed_letters = set(word)
+    guessed_letters = set()
+
+    global lives
+    lives = level_difficulty()
+    print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
+    time.sleep(0.5)
+
+    while len(needed_letters) > 0 and lives > 0:
+        print("\nLetters already used: ", ' '.join(sorted(guessed_letters)))
+        print('\nLives left:', lives, )
+
+        guess = [lett if lett in guessed_letters else '_' for lett in word]
+        if level == "E":
+            print(e_lives[lives])
+        elif level == "M":
+            print(m_lives[lives])
+        else:
+            print(h_lives[lives])
+
+        print('The current word: ', ' '.join(guess))
+
+        user_guessed = input("\n" + 'Please write a letter here: ').lower()
+
+        if user_guessed in alphabet - guessed_letters:
+            guessed_letters.add(user_guessed)
+            if user_guessed in needed_letters:
+                needed_letters.remove(user_guessed)
+                print('\nYou are so smart,', user_guessed, 'is in the word')
+
+            else:
+                lives = lives - 1
+                print("\n")
+                print('Oh no,', user_guessed, 'is not in the word, try again!')
+
+            print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
+
+        elif user_guessed in guessed_letters:
+            print("\nYou've tried this letter already. Please try another.")
+
+        else:
+            print('Invalid character used! please type in a valid letter.')
+
+    if lives == 0:
+        if level == "E":
+            print(e_lives[lives])
+        elif level == "M":
+            print(m_lives[lives])
+        else:
+            print(h_lives[lives])
+
+        print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
+        print(r"""          ____                         ___
+         / ___| __ _ _ __ ___   ___   / _ \__   _____ _ __
+        | |  _ / _` | '_ ` _ \ / _ \ | | | \ \ / / _ \ '__|
+        | |_| | (_| | | | | | |  __/ | |_| |\ V /  __/ |
+         \____|\__,_|_| |_| |_|\___|  \___/  \_/ \___|_|
+        """)
+        print(f"""
+                  Oh no, {name}, you've been hanged!""")
+        print("\n" + "                        The word was " + word + "\n")
+    else:
+        print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
+        print(r"""                            ____________
+                          .-\    _     /-.
+                         | (|   / |    |) |
+                          '-|     |    |-'
+                            \    _|_   /
+                             '.      .'
+                              _`)  (`_
+                            _/________\_
+                           /____________\
+        """)
+        print(f"""
+            Congratulations {name} you guessed the word!
+                     """)
+        print("                       The word was " + word + "\n")
 
 
 def level_difficulty():
@@ -86,9 +202,10 @@ def level_difficulty():
 
     while difficulty:
         global level
-        level = input(f"{name} please choose a difficulty here: ").upper()
+        level = input(f"""
+            {name} please choose a difficulty here: """).upper()
         print("\n" + """
------------------------------------------------------------------
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
         """)
         time.sleep(0.4)
         if level == "E":
@@ -126,37 +243,52 @@ def choosen():
     Message to show the player which level they have choosen as the game loads
     """
     print("""
------------------------------------------------------------------
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
         """)
     print(f"             {name} you choose {level} so let's get started!" "\n")
 
 
-def get_word(words):
+def game_end():
     """
-    Gets and chooses a random word from words file
-    out from which difficulty has been choosen
+    Function loop to choose to play again or stop
     """
-    word_e = random.choice(easy_dict)
-    word_m = random.choice(medium_dict)
-    word_h = random.choice(hard_dict)
+    global play
 
-    if level == "E":
-        return word_e(words)
-
-    elif level == "M":
-        return word_m(words)
-
-    elif level == "H":
-        return word_h(words)
-
+    if lives == 0:
+        play = input(f"""
+    That is to bad {name}! Want to try again? yes = y, no = n: """)
     else:
-        print("A mistake have happened, try again")
+        play = input(f"""
+ That is how it is done {name}! Want to try again? yes = y, no = n: """)
 
-
-def game():
-    """
-    Function for the actul game play
-    """
+    while play:
+        if play == "y":
+            print("\n")
+            print(f"            That is great {name}. Let's get to it!")
+            print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
+            game()
+            game_end()
+        elif play == "n":
+            print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
+            print(f"""
+             Thanks you {name} for playing CelestialHang""")
+            print("                    Hope to see you again soon!" + "\n")
+            time.sleep(1.3)
+            logo()
+            time.sleep(5)
+            exit()
+        else:
+            print("\n" + """
+                Sorry let's try that one more time!""" + "\n")
+            play = input("""
+              Want to try again? yes = y, no = n: """)
+            print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
 
 
 def main():
@@ -169,9 +301,8 @@ def main():
     welcome_player()
     level_difficulty()
     time.sleep(0.5)
-    choosen()
-    time.sleep(0.7)
-    word = get_word(words)
+    game()
 
 
 main()
+game_end()
