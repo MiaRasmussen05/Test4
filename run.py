@@ -97,13 +97,12 @@ def game():
     """
     Function for the actul game play
     """
+    global lives
+    lives = level_difficulty()
     word = get_word()
     alphabet = set(string.ascii_lowercase)
     needed_letters = set(word)
     guessed_letters = set()
-
-    global lives
-    lives = level_difficulty()
     print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
         """)
@@ -299,7 +298,7 @@ def main():
     time.sleep(0.6)
     logo()
     welcome_player()
-    level_difficulty()
+    # level_difficulty()
     time.sleep(0.5)
     game()
 
