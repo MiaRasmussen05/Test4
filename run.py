@@ -4,8 +4,21 @@ Import
 import time
 import random
 import string
+import gspread
+from google.oauth2.service_account import Credentials
 from words import easy_dict, medium_dict, hard_dict
 from hangman import e_lives, m_lives, h_lives
+
+SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+    ]
+
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('celestial_hang')
 
 
 def welcome_to():
@@ -109,7 +122,7 @@ def game():
     time.sleep(0.5)
 
     while len(needed_letters) > 0 and lives > 0:
-        print('\n'"Letters already used: ", ' '.join(sorted(guessed_letters)))
+        print("\nLetters already used: ", ' '.join(sorted(guessed_letters)))
         print('\n' + 'Lives left:', lives, )
 
         guess = [lett if lett in guessed_letters else '_' for lett in word]
@@ -122,7 +135,8 @@ def game():
 
         print('The current word: ', ' '.join(guess))
 
-        user_guessed = input("\n" + 'Please write a letter here: ').lower()
+        user_guessed = input("\n" + """
+Please write a letter here: """).lower().strip(' ')
 
         if user_guessed in alphabet - guessed_letters:
             guessed_letters.add(user_guessed)
@@ -143,7 +157,7 @@ def game():
             print("\nYou've tried this letter already. Please try another.")
 
         else:
-            print('Invalid character used! please type in a valid letter.')
+            print('\nInvalid character used! please type in a valid letter.')
 
     if lives == 0:
         if level == "E":
@@ -204,7 +218,7 @@ def level_difficulty():
     while difficulty:
         global level
         level = input(f"""
-            {name} please choose a difficulty here: """).upper()
+            {name} please choose a difficulty here: """).upper().strip(' ')
         print("\n" + """
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
         """)
@@ -235,8 +249,10 @@ def level_difficulty():
             lives = 10
             return lives
         else:
-            print("\n Please write one of the following: E, M or H")
-            print(" to choose the difficulty level you want. \n")
+            print("""
+         Please write one of the following: E, M or H""")
+            print("""
+           to choose the difficulty level you want.""" + "\n")
 
 
 def choosen():
@@ -257,10 +273,10 @@ def game_end():
 
     if lives == 0:
         play = input(f"""
-    That is to bad {name}! Want to try again? yes = y, no = n: """)
+    That is to bad {name}! Want to try again? yes = y, no = n: """).strip(' ')
     else:
         play = input(f"""
-        Yes {name}! Want to try again? yes = y, no = n: """)
+        Yes {name}! Want to try again? yes = y, no = n: """).strip(' ')
 
     while play:
         if play == "y":
@@ -275,6 +291,7 @@ def game_end():
             print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
         """)
+            new_words()
             print(f"""
              Thanks you {name} for playing CelestialHang""")
             print("                    Hope to see you again soon!" + "\n")
@@ -286,7 +303,50 @@ def game_end():
             print("\n" + """
                 Sorry let's try that one more time!""" + "\n")
             play = input("""
-              Want to try again? yes = y, no = n: """)
+              Want to try again? yes = y, no = n: """).strip(' ')
+
+
+def new_words():
+    """
+    Let the visitor give own ideas for new words
+    while putting them on a spreadsheet for review
+    """
+    # global question
+    if play == "n":
+        print("Wait one second please!\n")
+        print("Before you go, do you have any words you want to add?\n")
+        print("Maybe a word you would like to see become apart of the game")
+        print("\nThen now is your change!\n")
+        question = input("So do you have one? yes = y, no = n: ").strip(' ')
+
+        while question:
+            if question == "y":
+                ideas = input("\nEnter your word here: ").strip(' ')
+                print(f"Thank you for sending in the word: {ideas}" + "\n")
+                more = input("Do you have more? yes = y, no = n: ").strip(' ')
+                while more:
+                    if more == "y":
+                        ideas = input("\nEnter your word here: ")
+                        print(f"Thank you for sending in the word: {ideas}")
+                        more = input("""
+Do you have more? yes = y, no = n: """).strip(' ')
+                    elif more == "n":
+                        print("\nThank you for sharing your words!")
+                        print("Please come back soon!")
+                        return
+                    else:
+                        print("\ninvalid character! Please try again!")
+                        more = input("""
+Do you have more? yes = y, no = n: """).strip(' ')
+            elif question == "n":
+                print("\nThen on you go!")
+                break
+            else:
+                print("\nI am sorry I didn't get that...")
+                question = input("""
+            So do you have one? yes = y, no = n: """).strip(' ')
+    else:
+        pass
 
 
 def main():
