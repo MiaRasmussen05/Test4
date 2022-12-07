@@ -112,6 +112,8 @@ def game():
     """
     global lives
     lives = level_difficulty()
+    time.sleep(1)
+    choosen()
     word = get_word()
     alphabet = set(string.ascii_lowercase)
     needed_letters = set(word)
@@ -158,6 +160,7 @@ Please write a letter here: """).lower().strip(' ')
 
         else:
             print('\nInvalid character used! please type in a valid letter.')
+        time.sleep(0.5)
 
     if lives == 0:
         if level == "E":
@@ -314,33 +317,37 @@ def new_words():
     global ideas
     if play == "n":
         print("Wait one second please!\n")
+        time.sleep(1)
         print("Before you go, do you have any words you want to add?\n")
+        time.sleep(0.5)
         print("Maybe a word you would like to see become apart of the game")
+        time.sleep(0.5)
         print("\nThen now is your change!\n")
+        time.sleep(0.7)
         question = input("""
 So do you have one? yes = y, no = n: """).lower().strip(' ')
+        time.sleep(0.3)
 
         while question:
             if question == "y":
                 ideas = input("\nEnter your word here: ").strip(' ')
-                update_ideas_worksheet(ideas)
-                validatation(ideas)
-                while True:
-                    if validatation(ideas) != int(0):
-                        print(f"Thank you for sending in the word: {ideas}\n")
-                        break
+                time.sleep(0.3)
+                if validatation(ideas) != ideas.isnumeric():
+                    update_ideas_worksheet(ideas)
+                    time.sleep(0.7)
+                    print(f"Thank you for sending in the word: {ideas}\n")
                 more = input("""
 Do you have more? yes = y, no = n: """).lower().strip(' ')
 
                 while more:
                     if more == "y":
                         ideas = input("\nEnter your word here: ")
-                        update_ideas_worksheet(ideas)
-                        if validatation(ideas) != int(0):
+                        time.sleep(0.3)
+                        if validatation(ideas) != ideas.isnumeric():
+                            update_ideas_worksheet(ideas)
+                            time.sleep(0.7)
                             print(f"""
 Thank you for sending in the word: {ideas}""")
-                        else:
-                            pass
                         more = input("""
 Do you have more? yes = y, no = n: """).lower().strip(' ')
                     elif more == "n":
@@ -369,12 +376,12 @@ def validatation(value):
     or if there is more then 1 value for one word.
     """
     try:
-        if value == int(ideas):
+        if value == ideas.isnumeric():
             raise ValueError(
                 f"A word is required, you provided {value}"
             )
-    except ValueError as e:
-        print(f"Invalid word: {e}, please try again.\n")
+    except ValueError:
+        pass
 
 
 def update_ideas_worksheet(data):
@@ -383,7 +390,7 @@ def update_ideas_worksheet(data):
     """
     update_words = SHEET.worksheet("ideas")
     update_words.append_row([data])
-    print("You word is now up for review.\n")
+    print("Your word is now up for review.\n")
 
 
 def main():
