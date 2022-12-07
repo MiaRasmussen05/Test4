@@ -276,7 +276,7 @@ def game_end():
     That is to bad {name}! Want to try again? yes = y, no = n: """).strip(' ')
     else:
         play = input(f"""
-        Yes {name}! Want to try again? yes = y, no = n: """).strip(' ')
+        Yes {name}! Want to try again? yes = y, no = n: """).lower().strip(' ')
 
     while play:
         if play == "y":
@@ -303,7 +303,7 @@ def game_end():
             print("\n" + """
                 Sorry let's try that one more time!""" + "\n")
             play = input("""
-              Want to try again? yes = y, no = n: """).strip(' ')
+              Want to try again? yes = y, no = n: """).lower().strip(' ')
 
 
 def new_words():
@@ -311,25 +311,38 @@ def new_words():
     Let the visitor give own ideas for new words
     while putting them on a spreadsheet for review
     """
-    # global question
+    global ideas
     if play == "n":
         print("Wait one second please!\n")
         print("Before you go, do you have any words you want to add?\n")
         print("Maybe a word you would like to see become apart of the game")
         print("\nThen now is your change!\n")
-        question = input("So do you have one? yes = y, no = n: ").strip(' ')
+        question = input("""
+So do you have one? yes = y, no = n: """).lower().strip(' ')
 
         while question:
             if question == "y":
                 ideas = input("\nEnter your word here: ").strip(' ')
-                print(f"Thank you for sending in the word: {ideas}" + "\n")
-                more = input("Do you have more? yes = y, no = n: ").strip(' ')
+                update_ideas_worksheet(ideas)
+                validatation(ideas)
+                while True:
+                    if validatation(ideas) != int(0):
+                        print(f"Thank you for sending in the word: {ideas}\n")
+                        break
+                more = input("""
+Do you have more? yes = y, no = n: """).lower().strip(' ')
+
                 while more:
                     if more == "y":
                         ideas = input("\nEnter your word here: ")
-                        print(f"Thank you for sending in the word: {ideas}")
+                        update_ideas_worksheet(ideas)
+                        if validatation(ideas) != int(0):
+                            print(f"""
+Thank you for sending in the word: {ideas}""")
+                        else:
+                            pass
                         more = input("""
-Do you have more? yes = y, no = n: """).strip(' ')
+Do you have more? yes = y, no = n: """).lower().strip(' ')
                     elif more == "n":
                         print("\nThank you for sharing your words!")
                         print("Please come back soon!")
@@ -337,16 +350,40 @@ Do you have more? yes = y, no = n: """).strip(' ')
                     else:
                         print("\ninvalid character! Please try again!")
                         more = input("""
-Do you have more? yes = y, no = n: """).strip(' ')
+Do you have more? yes = y, no = n: """).lower().strip(' ')
             elif question == "n":
                 print("\nThen on you go!")
                 break
             else:
                 print("\nI am sorry I didn't get that...")
                 question = input("""
-            So do you have one? yes = y, no = n: """).strip(' ')
+            So do you have one? yes = y, no = n: """).lower().strip(' ')
     else:
         pass
+
+
+def validatation(value):
+    """
+    Inside of the try, all string values converts into integers.
+    # Raises ValueError if strings cannot be converted into int,
+    or if there is more then 1 value for one word.
+    """
+    try:
+        if value == int(ideas):
+            raise ValueError(
+                f"A word is required, you provided {value}"
+            )
+    except ValueError as e:
+        print(f"Invalid word: {e}, please try again.\n")
+
+
+def update_ideas_worksheet(data):
+    """
+    Update word ideas worksheet, add new row with the list data provided
+    """
+    update_words = SHEET.worksheet("ideas")
+    update_words.append_row([data])
+    print("You word is now up for review.\n")
 
 
 def main():
