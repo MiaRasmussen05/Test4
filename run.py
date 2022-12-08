@@ -6,8 +6,8 @@ import random
 import string
 import gspread
 from google.oauth2.service_account import Credentials
-from words import easy_dict, medium_dict, hard_dict
-from hangman import e_lives, m_lives, h_lives
+from words import easy_dict, medium_dict, hard_dict, special_dict
+from hangman import e_lives, m_lives, h_lives, s_lives
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -92,16 +92,16 @@ def get_word():
     word_e = random.choice(easy_dict)
     word_m = random.choice(medium_dict)
     word_h = random.choice(hard_dict)
+    word_s = random.choice(special_dict)
 
     if level == "E":
         return word_e
-
     elif level == "M":
         return word_m
-
     elif level == "H":
         return word_h
-
+    elif level == "S":
+        return word_s
     else:
         print("A mistake has happened, try again")
 
@@ -137,8 +137,10 @@ def game():
             print(e_lives[lives])
         elif level == "M":
             print(m_lives[lives])
-        else:
+        elif level == "H":
             print(h_lives[lives])
+        else:
+            print(s_lives[lives])
 
         print('The current word: ', ' '.join(guess))
 
@@ -171,8 +173,10 @@ Please write a letter here: """).lower().strip(' ')
             print(e_lives[lives])
         elif level == "M":
             print(m_lives[lives])
-        else:
+        elif level == "H":
             print(h_lives[lives])
+        else:
+            print(s_lives[lives])
 
         print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
@@ -189,6 +193,7 @@ Please write a letter here: """).lower().strip(' ')
         print(f"""
                   Oh no, {name}, you've been hanged!""")
         print("\n" + "                        The word was " + word + "\n")
+        print(f"                         Your score is {score}")
     else:
         score += 1
         if score == 1:
@@ -203,6 +208,13 @@ Please write a letter here: """).lower().strip(' ')
      *           o        .      *   '       .      o
      '    +    '       *       .    +      *     .      +
         """)
+            print(f"""
+        Would you look at that {name}, you found the hidden key!
+            Maybe it would be worth it doing another round.
+  Take a closer look to the difficulties before you choose your path.
+                     """)
+            print("                       The word was " + word + "\n")
+            print(f"                         Your score is {score}")
         else:
             print(r"""      *     .    o     .     .       +         .        *
      .           .      ~+ ____________   +    |   '        .
@@ -216,24 +228,28 @@ Please write a letter here: """).lower().strip(' ')
      '    +    '       *  /____________\   *     .      +
             """)
 
-        print(f"""
+            print(f"""
             Congratulations {name} you guessed the word!
-                     """)
-        print("                       The word was " + word + "\n")
-        print(f"                         Your score is {score}")
+                         """)
+            print("                       The word was " + word + "\n")
+            print(f"                         Your score is {score}")
 
 
 def level_difficulty():
     """
     Choose level difficulty
     """
-    print("""
+    if score >= 1:
+        print("""
+         Choose one of the four levels to get started...""" + "\n")
+    else:
+        print("""
          Choose one of the three levels to get started...""" + "\n")
     time.sleep(0.6)
     print("""                        For easy click E
                         For medium click M
                         For hard click H""")
-    if score == 1:
+    if score >= 1:
         print("""                  For the special level click S
     """)
 
@@ -272,11 +288,26 @@ def level_difficulty():
                      |_| |_|\__,_|_|  \__,_|""")
             lives = 10
             return lives
+        elif level == "S":
+            print(r"""                 ____                  _       _
+                / ___| _ __   ___  ___(_) __ _| |
+                \___ \| '_ \ / _ \/ __| |/ _` | |
+                 ___) | |_) |  __/ (__| | (_| | |
+                |____/| .__/ \___|\___|_|\__,_|_|
+                      |_| """)
+            lives = 11
+            return lives
         else:
-            print("""
-         Please write one of the following: E, M or H""")
-            print("""
-           to choose the difficulty level you want.""" + "\n")
+            if score >= 1:
+                print("""
+         Please write one of the following: E, M, H or S
+             to choose the difficulty level you want.
+                """)
+            else:
+                print("""
+         Please write one of the following: E, M or H
+           to choose the difficulty level you want.
+                """)
 
 
 def choosen():

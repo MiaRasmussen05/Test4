@@ -114,7 +114,7 @@ hard_dict = [
     'celestialmechanics'
 ]
 
-special_level = [
+special_dict = [
     'ewok',
     'jedi',
     'roid',
