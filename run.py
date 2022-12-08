@@ -106,11 +106,15 @@ def get_word():
         print("A mistake has happened, try again")
 
 
+score = 0
+
+
 def game():
     """
     Function for the actul game play
     """
     global lives
+    global score
     lives = level_difficulty()
     time.sleep(1)
     choosen()
@@ -126,6 +130,7 @@ def game():
     while len(needed_letters) > 0 and lives > 0:
         print("\nLetters already used: ", ' '.join(sorted(guessed_letters)))
         print('\n' + 'Lives left:', lives, )
+        print('Score:', score, )
 
         guess = [lett if lett in guessed_letters else '_' for lett in word]
         if level == "E":
@@ -160,7 +165,6 @@ Please write a letter here: """).lower().strip(' ')
 
         else:
             print('\nInvalid character used! please type in a valid letter.')
-        time.sleep(0.5)
 
     if lives == 0:
         if level == "E":
@@ -186,22 +190,37 @@ Please write a letter here: """).lower().strip(' ')
                   Oh no, {name}, you've been hanged!""")
         print("\n" + "                        The word was " + word + "\n")
     else:
-        print(r"""      *          o           .       +         .        *
-     .                  ~+ ____________   +    |   '        .
+        score += 1
+        if score == 1:
+            print(r"""      *          o     .     .       +         .        *
+     .                  ~+                +    |   '        .
+        .   |       *     .     '     '      - o -       +
+     *    - o -        ,------.  *     .   .   |      .
+            |      . /   ,--.  "______________    .   '     '
+       +       ~+   |   |    |                 |  +    *
+     .          .    \   '--'  .__||__|__||___" '    .    .
+            '        + "------"           .    ~~+     .    *
+     *           o        .      *   '       .      o
+     '    +    '       *       .    +      *     .      +
+        """)
+        else:
+            print(r"""      *     .    o     .     .       +         .        *
+     .           .      ~+ ____________   +    |   '        .
         .   |       *    .-\    _     /-.    - o -       +
      *    - o -         | (|   / |    |) | .   |      .
             |      .   ' '-|     |    |-'    o             '
        +       ~+         .\    _|_   /   *       +    *
-     .               *      '.      .'  .       '         .
-            '              + _`)  (`_      .   ~~+     .    *
+     .               *      '.      .'  .       '    .    .
+            '          .   + _`)  (`_      .   ~~+     .   *
      *           o        ._/________\_             o
      '    +    '       *  /____________\   *     .      +
-        """)
+            """)
 
         print(f"""
             Congratulations {name} you guessed the word!
                      """)
         print("                       The word was " + word + "\n")
+        print(f"                         Your score is {score}")
 
 
 def level_difficulty():
@@ -213,7 +232,9 @@ def level_difficulty():
     time.sleep(0.6)
     print("""                        For easy click E
                         For medium click M
-                        For hard click H
+                        For hard click H""")
+    if score == 1:
+        print("""                  For the special level click S
     """)
 
     difficulty = True
