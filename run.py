@@ -25,35 +25,39 @@ def welcome_to():
     """
     Welcome to the game message
     """
-    print("\n" + r"""       __        __   _                            _
-       \ \      / /__| | ___ ___  _ __ ___   ___  | |_ ___
-        \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \
-         \ V  V /  __/ | (__ (_) | | | | | |  __/ | |_ (_) |
-          \_/\_/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/  """)
+    print(r"""
+            __        __   _                            _
+            \ \      / /__| | ___ ___  _ __ ___   ___  | |_ ___
+             \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \
+              \ V  V /  __/ | (__ (_) | | | | | |  __/ | |_ (_) |
+               \_/\_/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/
+          """)
 
 
 def logo():
     """
     Celestial Hang logo
     """
-    print(r"""     ____     _          _   _       _ _
-    / ___|___| | ___ ___| |_(_) __ _| | |__   __ _ _ __   __ _
-   | |   / _ \ |/ _ \ __| __| |/ _` | | '_ \ / _` | '_ \ / _` |
-   | |___  __/ |  __\__ \ |_| | (_| | | | | | (_| | | | | (_| |
-    \____\___|_|\___|___/\__|_|\__,_|_|_| |_|\__,_|_| |_|\__, |
-                                                         |___/  """)
+    print(r"""          ____     _          _   _       _ _
+         / ___|___| | ___ ___| |_(_) __ _| | |__   __ _ _ __   __ _
+        | |   / _ \ |/ _ \ __| __| |/ _` | | '_ \ / _` | '_ \ / _` |
+        | |___  __/ |  __\__ \ |_| | (_| | | | | | (_| | | | | (_| |
+         \____\___|_|\___|___/\__|_|\__,_|_|_| |_|\__,_|_| |_|\__, |
+                                                              |___/
+                                                        """)
 
-    print(r"""      *   '      o           .       +         .        *
-     .                   ~+   __________  +    |   '
-        .   |       *      .  |/       |     - o -       +
-     *    - o -               |   +    | .     |      .
-            |      .   '      |        |     o             '
-       +       ~+           * |        O  *       +    *
-     .               *        |  '    /|\       '         .
-            '              +  |       / \  .   ~~+     .    *
-     *           o         .  |       *             o
-     '    +    '       *      |    o       *     .      +
-     ________________________/|\____________________________""" + "\n")
+    print(r"""           *   '      o           .       +         .        *
+          .                   ~+   __________  +    |   '
+             .   |       *      .  |/       |     - o -       +
+          *    - o -               |   +    | .     |      .
+                 |      .   '      |        |     o             '
+            +       ~+           * |        O  *       +    *
+          .               *        |  '    /|\       '         .
+                 '              +  |       / \  .   ~~+     .    *
+          *           o         .  |       *             o
+          '    +    '       *      |    o       *     .      +
+          ________________________/|\____________________________
+    """)
 
 
 def welcome_player():
@@ -195,8 +199,16 @@ Please write a letter here: """).lower().strip(' ')
         print("\n" + "                        The word was " + word + "\n")
         print(f"                         Your score is {score}")
     else:
-        score += 1
-        if score == 5:
+        if level == "E":
+            score += 1
+        elif level == "M":
+            score += 2
+        elif level == "H":
+            score += 3
+        elif level == "S":
+            score += 4
+
+        if score == 27:
             print(r"""      *          o     .     .       +         .        *
      .                  ~+                +    |   '        .
         .   |       *     .     '     '      - o -       +
@@ -215,6 +227,78 @@ Please write a letter here: """).lower().strip(' ')
                      """)
             print("                       The word was " + word + "\n")
             print(f"                         Your score is {score}")
+        elif score == 25:
+            print(r"""      *     ,    o     .     .       +         .        *
+     .           .     ~+ _____ . _______ +    |   '        .
+        .   |       *    |___   \|    ___|   - o -       +
+     *    - o -            . \   |   |__   .   |      .
+            |      .   '   __/   |___   \    o             '
+       +       ~+         /   __/    \   |*       +    *
+     .               *   |   |___ ___/   |  .   '    .    .
+            '          . |_______|_____ /      ~~+     .   *
+     *           o        '    .    *               o
+     '    +    '       *     '   +     .   *     .      +
+            """)
+            print(f"""
+                    You are on a roll here!
+
+                        The word was {word}
+
+                        Your score is {score}""")
+        elif score == 50:
+            print(r"""      *     ,    o     .     .       +         .        *
+     .           .     ~+ _______ .______ +    |   '        .
+        .   |       *    |    ___|/  __  \   - o -       +
+     *    - o -          |   |__ |  |  |  |.   |      .
+            |      .   ' |___   \|  |  |  |  o             '
+       +       ~+          , \   |  |  |  |       +    *
+     .               *    ___/   |  |__|  | .   '    .    .
+            '          . |_____ / \______/     ~~+     .   *
+     *           o        '    .    *               o
+     '    +    '       *     '   +     .   *     .      +
+            """)
+            print(f"""
+     How are you doing this! Can I borrow some of that skill?
+
+                        The word was {word}
+
+                        Your score is {score}""")
+        elif score == 75:
+            print(r"""      *     ,    o     .     .       +         .        *
+     .           .    ~+ _________ _______ +      |         .
+        .   |       *   |______   |    ___|     - o -    +
+     *    - o -            o  /  /|   |__  .      |   .
+            |      .   '     /  / |___   \   o             '
+       +       ~+         + /  /    . \   |       +    *
+     .               *     /  / ,  ___/   | .   '    .    .
+            '          .  /__/    |_____ /     ~~+     .   *
+     *           o        '    .    *               o
+     '    +    '       *     '   +     .   *     .      +
+            """)
+            print(f"""
+                  How high are you going to go!!!
+
+                        The word was {word}
+
+                        Your score is {score}""")
+        elif score == 100:
+            print(r"""      *     ,    o     .     .       +         .        *
+     .          .   ~+ ____  ______ . ______+      |         .
+        .   |       * /    |/  __  \ /  __  \    - o -    +
+     *    - o -      /_    |  |  |  |  |  |  |.    |   .
+            |      .   |   |  |  |  |  |  |  |   o          '
+       +       ~+      |   |  |  |  |  |  |  |    +    *
+     .               * |   |  |__|  |  |__|  |  '    .    .
+            '          |___|\______/ \______/  ~~+     .   *
+     *           o   '    '    .    *               o
+     '    +    '       *     '   +     .   *     .      +
+            """)
+            print(f"""
+               Not even the sky is a limit for you!
+
+                        The word was {word}
+
+                        Your score is {score}""")
         else:
             print(r"""      *     .    o     .     .       +         .        *
      .           .      ~+ ____________   +    |   '        .
@@ -230,16 +314,17 @@ Please write a letter here: """).lower().strip(' ')
 
             print(f"""
             Congratulations {name} you guessed the word!
-                         """)
-            print("                       The word was " + word + "\n")
-            print(f"                         Your score is {score}")
+
+                         The word was {word}
+
+                        Your score is {score}""")
 
 
 def level_difficulty():
     """
     Choose level difficulty
     """
-    if score >= 5:
+    if score >= 27:
         print("""
          Choose one of the four levels to get started...""" + "\n")
     else:
@@ -249,7 +334,7 @@ def level_difficulty():
     print("""                        For easy click E
                         For medium click M
                         For hard click H""")
-    if score >= 5:
+    if score >= 27:
         print("""                  For the special level click S
     """)
 
@@ -288,18 +373,18 @@ def level_difficulty():
                      |_| |_|\__,_|_|  \__,_|""")
             lives = 10
             return lives
-        if score >= 5:
+        if score >= 27:
             if level == "S":
-                print(r"""                     ____                  _       _
-                    / ___| _ __   ___  ___(_) __ _| |
-                    \___ \| '_ \ / _ \/ __| |/ _` | |
-                     ___) | |_) |  __/ (__| | (_| | |
-                    |____/| .__/ \___|\___|_|\__,_|_|
-                          |_| """)
+                print(r"""                 ____                  _       _
+                / ___| _ __   ___  ___(_) __ _| |
+                \___ \| '_ \ / _ \/ __| |/ _` | |
+                 ___) | |_) |  __/ (__| | (_| | |
+                |____/| .__/ \___|\___|_|\__,_|_|
+                      |_| """)
                 lives = 11
                 return lives
         else:
-            if score >= 5:
+            if score >= 27:
                 print("""
          Please write one of the following: E, M, H or S
              to choose the difficulty level you want.
@@ -353,6 +438,11 @@ def game_end():
             print("                    Hope to see you again soon!" + "\n")
             time.sleep(1.3)
             logo()
+            print("""
+                          Copyright ©Mia Rasmussen 2022
+  Disclaimer: this game was built for a project and is not for commercial use
+     I do not own the words that was used in any of the level difficulties.
+            """)
             time.sleep(5)
             exit()
         else:
@@ -420,6 +510,13 @@ Do you have more? yes = y, no = n: """).lower().strip(' ')
             So do you have one? yes = y, no = n: """).lower().strip(' ')
     else:
         pass
+
+
+def stars():
+    """
+    Let the visitor give stars and review of the game
+    while putting them on a spreadsheet
+    """
 
 
 def validatation(value):
