@@ -196,7 +196,7 @@ Please write a letter here: """).lower().strip(' ')
         print(f"                         Your score is {score}")
     else:
         score += 1
-        if score == 1:
+        if score == 5:
             print(r"""      *          o     .     .       +         .        *
      .                  ~+                +    |   '        .
         .   |       *     .     '     '      - o -       +
@@ -239,7 +239,7 @@ def level_difficulty():
     """
     Choose level difficulty
     """
-    if score >= 1:
+    if score >= 5:
         print("""
          Choose one of the four levels to get started...""" + "\n")
     else:
@@ -249,7 +249,7 @@ def level_difficulty():
     print("""                        For easy click E
                         For medium click M
                         For hard click H""")
-    if score >= 1:
+    if score >= 5:
         print("""                  For the special level click S
     """)
 
@@ -298,7 +298,7 @@ def level_difficulty():
             lives = 11
             return lives
         else:
-            if score >= 1:
+            if score >= 5:
                 print("""
          Please write one of the following: E, M, H or S
              to choose the difficulty level you want.
