@@ -25,39 +25,35 @@ def welcome_to():
     """
     Welcome to the game message
     """
-    print(r"""
-            __        __   _                            _
-            \ \      / /__| | ___ ___  _ __ ___   ___  | |_ ___
-             \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \
-              \ V  V /  __/ | (__ (_) | | | | | |  __/ | |_ (_) |
-               \_/\_/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/
-          """)
+    print(r"""       __        __   _                            _
+       \ \      / /__| | ___ ___  _ __ ___   ___  | |_ ___
+        \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \
+         \ V  V /  __/ | (__ (_) | | | | | |  __/ | |_ (_) |
+          \_/\_/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/ """)
 
 
 def logo():
     """
     Celestial Hang logo
     """
-    print(r"""          ____     _          _   _       _ _
-         / ___|___| | ___ ___| |_(_) __ _| | |__   __ _ _ __   __ _
-        | |   / _ \ |/ _ \ __| __| |/ _` | | '_ \ / _` | '_ \ / _` |
-        | |___  __/ |  __\__ \ |_| | (_| | | | | | (_| | | | | (_| |
-         \____\___|_|\___|___/\__|_|\__,_|_|_| |_|\__,_|_| |_|\__, |
-                                                              |___/
-                                                        """)
+    print(r"""     ____     _          _   _       _ _
+    / ___|___| | ___ ___| |_(_) __ _| | |__   __ _ _ __   __ _
+   | |   / _ \ |/ _ \ __| __| |/ _` | | '_ \ / _` | '_ \ / _` |
+   | |___  __/ |  __\__ \ |_| | (_| | | | | | (_| | | | | (_| |
+    \____\___|_|\___|___/\__|_|\__,_|_|_| |_|\__,_|_| |_|\__, |
+                                                         |___/ """)
 
-    print(r"""           *   '      o           .       +         .        *
-          .                   ~+   __________  +    |   '
-             .   |       *      .  |/       |     - o -       +
-          *    - o -               |   +    | .     |      .
-                 |      .   '      |        |     o             '
-            +       ~+           * |        O  *       +    *
-          .               *        |  '    /|\       '         .
-                 '              +  |       / \  .   ~~+     .    *
-          *           o         .  |       *             o
-          '    +    '       *      |    o       *     .      +
-          ________________________/|\____________________________
-    """)
+    print(r"""      *   '      o           .       +         .        *
+     .                   ~+   __________  +    |   '
+        .   |       *      .  |/       |     - o -       +
+     *    - o -               |   +    | .     |      .
+            |      .   '      |        |     o             '
+       +       ~+           * |        O  *       +    *
+     .               *        |  '    /|\       '         .
+            '              +  |       / \  .   ~~+     .    *
+     *           o         .  |       *             o
+     '    +    '       *      |    o       *     .      +
+     ________________________/|\____________________________""" + "\n")
 
 
 def welcome_player():
@@ -71,8 +67,9 @@ def welcome_player():
     print("\n" + f"""                          Welcome {name}
                I hope you have fun and good luck!""" + "\n")
     time.sleep(1)
-    print("-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-")
-    print("\n" + "                      Here comes the rules..." + "\n")
+    print("""-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+
+                      Here comes the rules...""" + "\n")
     time.sleep(1)
     print("1. Try to see if you can guess the celestial themed word" + "\n")
     time.sleep(0.6)
@@ -83,9 +80,10 @@ def welcome_player():
    or it's game over.""")
     time.sleep(0.6)
     print("\n" + """4. Remeber choose the difficulty level carefully -
-   the higher you go the harder the word is to guess""" + "\n")
+   the higher you go the harder the word is to guess
+
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-""" + "\n")
     time.sleep(1)
-    print("-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-")
 
 
 def get_word():
@@ -132,7 +130,7 @@ def game():
     time.sleep(0.5)
 
     while len(needed_letters) > 0 and lives > 0:
-        print("\nLetters already used: ", ' '.join(sorted(guessed_letters)))
+        print("Letters already used: ", ' '.join(sorted(guessed_letters)))
         print('\n' + 'Lives left:', lives, )
         print('Score:', score, )
 
@@ -148,7 +146,7 @@ def game():
 
         print('The current word: ', ' '.join(guess))
 
-        user_guessed = input("\n" + """
+        user_guessed = input("""
 Please write a letter here: """).lower().strip(' ')
 
         if user_guessed in alphabet - guessed_letters:
@@ -159,18 +157,22 @@ Please write a letter here: """).lower().strip(' ')
 
             else:
                 lives = lives - 1
-                print("\n")
-                print('Oh no,', user_guessed, 'is not in the word, try again!')
+                print(f"""
+Oh no, {user_guessed} is not in the word, try again!""")
 
-            print("""
--.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
-        """)
+#             print("""
+# -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+#         """)
 
         elif user_guessed in guessed_letters:
             print("\nYou've tried this letter already. Please try another.")
 
         else:
             print('\nInvalid character used! please type in a valid letter.')
+
+        print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
 
     if lives == 0:
         if level == "E":
@@ -196,7 +198,7 @@ Please write a letter here: """).lower().strip(' ')
         """)
         print(f"""
                   Oh no, {name}, you've been hanged!""")
-        print("\n" + "                        The word was " + word + "\n")
+        print("\n" + "                         The word was " + word + "\n")
         print(f"                         Your score is {score}")
     else:
         if level == "E":
@@ -221,11 +223,11 @@ Please write a letter here: """).lower().strip(' ')
      '    +    '       *       .    +      *     .      +
         """)
             print(f"""
-        Would you look at that {name}, you found the hidden key!
-            Maybe it would be worth it doing another round.
-  Take a closer look to the difficulties before you choose your path.
+       Would you look at that {name}, you found the hidden key!
+          Maybe it would be worth it doing another round.
+Take a closer look at the difficulties before you choose your path.
                      """)
-            print("                       The word was " + word + "\n")
+            print("                         The word was " + word + "\n")
             print(f"                         Your score is {score}")
         elif score == 25:
             print(r"""      *     ,    o     .     .       +         .        *
@@ -315,7 +317,7 @@ Please write a letter here: """).lower().strip(' ')
             print(f"""
             Congratulations {name} you guessed the word!
 
-                         The word was {word}
+                        The word was {word}
 
                         Your score is {score}""")
 
@@ -335,8 +337,7 @@ def level_difficulty():
                         For medium click M
                         For hard click H""")
     if score >= 27:
-        print("""                  For the special level click S
-    """)
+        print("""                  For the special level click S""")
 
     difficulty = True
 
@@ -354,7 +355,8 @@ def level_difficulty():
                      |  _| / _` / __| | | |
                      | |___ (_| \__ \ |_| |
                      |_____\__,_|___/\__, |
-                                     |___/ """)
+                                     |___/
+            """)
             lives = 5
             return lives
         elif level == "M":
@@ -362,7 +364,8 @@ def level_difficulty():
               |  \/  | ___  __| (_)_   _ _ __ ___
               | |\/| |/ _ \/ _` | | | | | '_ ` _ \
               | |  | |  __/ (_| | | |_| | | | | | |
-              |_|  |_|\___|\__,_|_|\__,_|_| |_| |_|""")
+              |_|  |_|\___|\__,_|_|\__,_|_| |_| |_|
+            """)
             lives = 7
             return lives
         elif level == "H":
@@ -370,7 +373,8 @@ def level_difficulty():
                      | | | | __ _ _ __ __| |
                      | |_| |/ _` | '__/ _` |
                      |  _  | (_| | | | (_| |
-                     |_| |_|\__,_|_|  \__,_|""")
+                     |_| |_|\__,_|_|  \__,_|
+            """)
             lives = 10
             return lives
         if score >= 27:
@@ -380,7 +384,8 @@ def level_difficulty():
                 \___ \| '_ \ / _ \/ __| |/ _` | |
                  ___) | |_) |  __/ (__| | (_| | |
                 |____/| .__/ \___|\___|_|\__,_|_|
-                      |_| """)
+                      |_|
+                """)
                 lives = 11
                 return lives
         else:
@@ -403,7 +408,7 @@ def choosen():
     print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
         """)
-    print(f"             {name} you choose {level} so let's get started!" "\n")
+    print(f"             {name} you choose {level} so let's get started!")
 
 
 def game_end():
@@ -433,6 +438,8 @@ def game_end():
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
         """)
             new_words()
+            print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-""")
             print(f"""
              Thanks you {name} for playing CelestialHang""")
             print("                    Hope to see you again soon!" + "\n")
@@ -459,16 +466,17 @@ def new_words():
     """
     global ideas
     if play == "n":
-        print("Wait one second please!\n")
-        time.sleep(1)
-        print("Before you go, do you have any words you want to add?\n")
-        time.sleep(0.5)
-        print("Maybe a word you would like to see become apart of the game")
-        time.sleep(0.5)
-        print("\nThen now is your change!\n")
+        print("                      Wait one second please!\n")
+        time.sleep(2)
+        print("""      Before you go, do you have any words you want to add?
+   Maybe a word you would like to see become apart of the game
+                      Then now is your change!""")
         time.sleep(0.7)
         question = input("""
-So do you have one? yes = y, no = n: """).lower().strip(' ')
+              So do you have one? yes = y, no = n: """).lower().strip(' ')
+        print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
         time.sleep(0.3)
 
         while question:
@@ -502,7 +510,7 @@ Do you have more? yes = y, no = n: """).lower().strip(' ')
                         more = input("""
 Do you have more? yes = y, no = n: """).lower().strip(' ')
             elif question == "n":
-                print("\nThen on you go!")
+                print("                           Then on you go!")
                 break
             else:
                 print("\nI am sorry I didn't get that...")
@@ -540,7 +548,7 @@ def update_ideas_worksheet(data):
     """
     update_words = SHEET.worksheet("ideas")
     update_words.append_row([data])
-    print("Your word is now up for review.\n")
+    print("\nYour word is now up for review.\n")
 
 
 def main():
@@ -550,6 +558,7 @@ def main():
     welcome_to()
     time.sleep(0.6)
     logo()
+    time.sleep(0.7)
     welcome_player()
     time.sleep(0.5)
     game()
