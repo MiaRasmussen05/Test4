@@ -4,10 +4,14 @@ Import
 import time
 import random
 import string
+import colorama
+from colorama import Fore
+# , Back, Style
 import gspread
 from google.oauth2.service_account import Credentials
 from words import easy_dict, medium_dict, hard_dict, special_dict
 from hangman import e_lives, m_lives, h_lives, s_lives
+colorama.init()
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -54,34 +58,36 @@ def logo():
      *           o         .  |       *             o
      '    +    '       *      |    o       *     .      +
      ________________________/|\____________________________""" + "\n")
-    time.sleep(0.5)
-    print(r"""      *   '      o           .       +         .        *
-     .                   ~+   __________  +    |   '
-        .   |       *      .  |/       |     - o -       +
-     *    - o -               |   +    | .     |      .
-            |      .   '      |        |     o             '
-       +       ~+           * |        O/ *       +    *
-     .               *        |  '    /|        '         .
-            '              +  |       / \  .   ~~+     .    *
-     *           o         .  |       *             o
-     '    +    '       *      |    o       *     .      +
-     ________________________/|\____________________________""" + "\n")
 
 
 def welcome_player():
     """
     Input a name to have a more personalized response
-    With a message to really welcome the visitor and give them the rules
-    Choice of what level difficulty
+    Color for the name verible
+    With a message to really welcome the visitor
+    Run the rules function
     """
     global name
-    name = input("Please enter you name here: ")
+    name_col = input("Please enter you name here: ")
+    name = Fore.MAGENTA + name_col + Fore.WHITE
     print("\n" + f"""                          Welcome {name}
                I hope you have fun and good luck!""" + "\n")
     time.sleep(1)
-    print("""-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+    print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
+    rules()
+    print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-""" + "\n")
+    time.sleep(1)
 
-                      Here comes the rules...""" + "\n")
+
+def rules():
+    """
+    Inform the player about the game rules
+    Implement color for the rules function
+    """
+    print(Fore.CYAN + """                     Here comes the rules...""" "\n")
     time.sleep(1)
     print("1. Try to see if you can guess the celestial themed word" + "\n")
     time.sleep(0.6)
@@ -92,10 +98,7 @@ def welcome_player():
    or it's game over.""")
     time.sleep(0.6)
     print("\n" + """4. Remeber choose the difficulty level carefully -
-   the higher you go the harder the word is to guess
-
--.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-""" + "\n")
-    time.sleep(1)
+   the higher you go the harder the word is to guess""" + Fore.WHITE)
 
 
 def get_word():
@@ -143,7 +146,34 @@ def game():
 
     while len(needed_letters) > 0 and lives > 0:
         print("Letters already used: ", ' '.join(sorted(guessed_letters)))
-        print('\n' + 'Lives left:', lives, )
+        if level == "E":
+            if lives >= 4:
+                print('\n' + 'Lives left:' + Fore.GREEN, lives, Fore.WHITE)
+            elif lives >= 2:
+                print('\n' + 'Lives left:' + Fore.YELLOW, lives, Fore.WHITE)
+            elif lives >= 0:
+                print('\n' + 'Lives left:' + Fore.RED, lives, Fore.WHITE)
+        elif level == "M":
+            if lives >= 5:
+                print('\n' + 'Lives left:' + Fore.GREEN, lives, Fore.WHITE)
+            elif lives >= 3:
+                print('\n' + 'Lives left:' + Fore.YELLOW, lives, Fore.WHITE)
+            elif lives >= 0:
+                print('\n' + 'Lives left:' + Fore.RED, lives, Fore.WHITE)
+        elif level == "H":
+            if lives >= 7:
+                print('\n' + 'Lives left:' + Fore.GREEN, lives, Fore.WHITE)
+            elif lives >= 4:
+                print('\n' + 'Lives left:' + Fore.YELLOW, lives, Fore.WHITE)
+            elif lives >= 0:
+                print('\n' + 'Lives left:' + Fore.RED, lives, Fore.WHITE)
+        elif level == "S":
+            if lives >= 8:
+                print('\n' + 'Lives left:' + Fore.GREEN, lives, Fore.WHITE)
+            elif lives >= 4:
+                print('\n' + 'Lives left:' + Fore.YELLOW, lives, Fore.WHITE)
+            elif lives >= 0:
+                print('\n' + 'Lives left:' + Fore.RED, lives, Fore.WHITE)
         print('Score:', score, )
 
         guess = [lett if lett in guessed_letters else '_' for lett in word]
@@ -338,66 +368,83 @@ def level_difficulty():
     """
     Choose level difficulty
     """
-    if score >= 27:
+    green = Fore.GREEN + "easy" + Fore.WHITE
+    green_e = Fore.GREEN + "E" + Fore.WHITE
+    yellow = Fore.YELLOW + "medium" + Fore.WHITE
+    yellow_m = Fore.YELLOW + "M" + Fore.WHITE
+    red = Fore.RED + "hard" + Fore.WHITE
+    red_h = Fore.RED + "H" + Fore.WHITE
+    blue = Fore.BLUE + "special" + Fore.WHITE
+    blue_s = Fore.BLUE + "S" + Fore.WHITE
+
+    if score >= 0:
         print("""
          Choose one of the four levels to get started...""" + "\n")
     else:
         print("""
          Choose one of the three levels to get started...""" + "\n")
     time.sleep(0.6)
-    print("""                        For easy click E
-                        For medium click M
-                        For hard click H""")
-    if score >= 27:
-        print("""                  For the special level click S""")
+    print(f"""                        For {green} click {green_e}
+                        For {yellow} click {yellow_m}
+                        For {red} click {red_h}""")
+    if score >= 0:
+        print(f"""                  For the {blue} level click {blue_s}""")
 
     difficulty = True
 
     while difficulty:
         global level
+        global level_col
         level = input(f"""
             {name} please choose a difficulty here: """).upper().strip(' ')
         print("\n" + """
--.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
-        """)
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-""")
         time.sleep(0.4)
         if level == "E":
-            print(r"""                      _____
+            level_col = Fore.GREEN + level + Fore.WHITE
+            print(Fore.GREEN + r"""
+                      _____
                      | ____|__ _ ___ _   _
                      |  _| / _` / __| | | |
                      | |___ (_| \__ \ |_| |
                      |_____\__,_|___/\__, |
                                      |___/
-            """)
+            """ + Fore.WHITE)
             lives = 5
             return lives
         elif level == "M":
-            print(r"""               __  __          _ _
+            level_col = Fore.YELLOW + level + Fore.WHITE
+            print(Fore.YELLOW + r"""
+               __  __          _ _
               |  \/  | ___  __| (_)_   _ _ __ ___
               | |\/| |/ _ \/ _` | | | | | '_ ` _ \
               | |  | |  __/ (_| | | |_| | | | | | |
               |_|  |_|\___|\__,_|_|\__,_|_| |_| |_|
-            """)
+            """ + Fore.WHITE)
             lives = 7
             return lives
         elif level == "H":
-            print(r"""                      _   _               _
+            level_col = Fore.RED + level + Fore.WHITE
+            print(Fore.RED + r"""
+                      _   _               _
                      | | | | __ _ _ __ __| |
                      | |_| |/ _` | '__/ _` |
                      |  _  | (_| | | | (_| |
                      |_| |_|\__,_|_|  \__,_|
-            """)
+            """ + Fore.WHITE)
             lives = 10
             return lives
-        if score >= 27:
+        if score >= 0:
             if level == "S":
-                print(r"""                 ____                  _       _
+                level_col = Fore.BLUE + level + Fore.WHITE
+                print(Fore.BLUE + r"""
+                 ____                  _       _
                 / ___| _ __   ___  ___(_) __ _| |
                 \___ \| '_ \ / _ \/ __| |/ _` | |
                  ___) | |_) |  __/ (__| | (_| | |
                 |____/| .__/ \___|\___|_|\__,_|_|
                       |_|
-                """)
+                """ + Fore.WHITE)
                 lives = 11
                 return lives
         else:
@@ -420,7 +467,7 @@ def choosen():
     print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
         """)
-    print(f"             {name} you choose {level} so let's get started!")
+    print(f"             {name} you choose {level_col} so let's get started!")
 
 
 def game_end():
