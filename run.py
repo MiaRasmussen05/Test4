@@ -82,6 +82,15 @@ def welcome_player():
     time.sleep(1)
 
 
+def separator():
+    """
+    Function to print separators to keep the different functions separated
+    """
+    print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
+
+
 def rules():
     """
     Inform the player about the game rules
@@ -255,7 +264,7 @@ Oh no, {user_guessed} is not in the word, try again!""")
                         Your score is {score}""")
     else:
         if level == "E":
-            score += 100
+            score += 1
         elif level == "M":
             score += 2
         elif level == "H":
