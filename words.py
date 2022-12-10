@@ -1,7 +1,7 @@
 """
 Lists of words for the different difficulties
 """
-easy_dict = [
+easy_words = [
     'god',
     'leo',
     'sky',
@@ -44,7 +44,7 @@ easy_dict = [
     'zodiac'
 ]
 
-medium_dict = [
+medium_words = [
     'ancient',
     'angelic',
     'eternal',
@@ -84,7 +84,7 @@ medium_dict = [
     'cassiopeia',
 ]
 
-hard_dict = [
+hard_words = [
     'newmoon',
     'blackhole',
     'northstar',
@@ -114,7 +114,7 @@ hard_dict = [
     'celestialmechanics'
 ]
 
-special_dict = [
+special_words = [
     'ewok',
     'jedi',
     'roid',

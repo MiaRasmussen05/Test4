@@ -5,11 +5,11 @@ import time
 import random
 import string
 import colorama
-from colorama import Fore
+from colorama import Fore, Style
 # , Back, Style
 import gspread
 from google.oauth2.service_account import Credentials
-from words import easy_dict, medium_dict, hard_dict, special_dict
+from words import easy_words, medium_words, hard_words, special_words
 from hangman import e_lives, m_lives, h_lives, s_lives
 colorama.init()
 
@@ -106,10 +106,10 @@ def get_word():
     Gets and chooses a random word from words file
     out from which difficulty has been choosen
     """
-    word_e = random.choice(easy_dict)
-    word_m = random.choice(medium_dict)
-    word_h = random.choice(hard_dict)
-    word_s = random.choice(special_dict)
+    word_e = random.choice(easy_words)
+    word_m = random.choice(medium_words)
+    word_h = random.choice(hard_words)
+    word_s = random.choice(special_words)
 
     if level == "E":
         return word_e
@@ -136,6 +136,7 @@ def game():
     time.sleep(1)
     choosen()
     word = get_word()
+    word_col = Fore.BLUE + Style.BRIGHT + word + Fore.WHITE
     alphabet = set(string.ascii_lowercase)
     needed_letters = set(word)
     guessed_letters = set()
@@ -202,10 +203,6 @@ Please write a letter here: """).lower().strip(' ')
                 print(f"""
 Oh no, {user_guessed} is not in the word, try again!""")
 
-#             print("""
-# -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
-#         """)
-
         elif user_guessed in guessed_letters:
             print("\nYou've tried this letter already. Please try another.")
 
@@ -229,22 +226,36 @@ Oh no, {user_guessed} is not in the word, try again!""")
         print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
         """)
-        print(r"""      *   '      o           .       +         .        *
-    .     ____ +   '    .    ~+        ___    *       '     +
-        '/ ___| __ _+_ __ ___   ___ * / _ \__ . _____ _ __    '
-  *     | |  _ / _` | '_ ` _ \ / _ \ | | | \ \ / / _ \ '__|'  *
-    ~+ .| |_| | (_| | | | | | |  __/ | |_| |\ V /  __/ |    .
-         \____|\__,_|_| |_| |_|\___|  \___/  \_/ \___|_|  *
+        first = Fore.RED + "____" + Fore.WHITE
+        second = Fore.RED + r"___" + Fore.WHITE
+        third = Fore.RED + r"/ ___| __ _" + Fore.WHITE
+        forth = Fore.RED + r"_ __ ___   ___" + Fore.WHITE
+        fifth = Fore.RED + r"/ _ \__" + Fore.WHITE
+        sixth = Fore.RED + "_____ _ __" + Fore.WHITE
+        seventh = Fore.RED + r"| |  _ / _` | '_ ` _ \ / _ \ " + Fore.WHITE
+        eight = Fore.RED + r"| | | \ \ / / _ \ '__|" + Fore.WHITE
+        ninth = Fore.RED + r"| |_| | (_| | | | | | |  __/" + Fore.WHITE
+        tenth = Fore.RED + r"| |_| |\ V /  __/ |" + Fore.WHITE
+        eleventh = Fore.RED + r"\____|\__,_|_| |_| |_|\___|" + Fore.WHITE
+        twelfth = Fore.RED + r"\___/  \_/ \___|_|" + Fore.WHITE
+        print(f"""      *   '      o           .       +         .        *
+    .     {first} +   '    .    ~+        {second}    *       '     +
+        '{third}+{forth} * {fifth} . {sixth}    '
+  *     {seventh}{eight}'  *
+    ~+ .{ninth} {tenth}    .
+         {eleventh}  {twelfth}  *
      +   *           o     '   .  +       *       '     o    ~+
         '    +    '       *      '    o       *     .      +
         """)
         print(f"""
-                  Oh no, {name}, you've been hanged!""")
-        print("\n" + "                         The word was " + word + "\n")
-        print(f"                         Your score is {score}")
+                  Oh no, {name}, you've been hanged!
+
+                        The word was {word_col}
+
+                        Your score is {score}""")
     else:
         if level == "E":
-            score += 1
+            score += 100
         elif level == "M":
             score += 2
         elif level == "H":
@@ -252,15 +263,20 @@ Oh no, {user_guessed} is not in the word, try again!""")
         elif level == "S":
             score += 4
 
-        if score == 27:
-            print(r"""      *          o     .     .       +         .        *
+        if score == 5:
+            first = Fore.YELLOW + ",------." + Fore.WHITE
+            second = Fore.YELLOW + r'/   ,--.  "______________' + Fore.WHITE
+            third = Fore.YELLOW + r"|   |    |                 |" + Fore.WHITE
+            forth = Fore.YELLOW + r"\   '--'  .__||__|__||___'" + Fore.WHITE
+            fifth = Fore.YELLOW + r'"------"' + Fore.WHITE
+            print(f"""      *          o     .     .       +         .        *
      .                  ~+                +    |   '        .
         .   |       *     .     '     '      - o -       +
-     *    - o -        ,------.  *     .   .   |      .
-            |      . /   ,--.  "______________    .   '     '
-       +       ~+   |   |    |                 |  +    *
-     .          .    \   '--'  .__||__|__||___" '    .    .
-            '        + "------"           .    ~~+     .    *
+     *    - o -        {first}  *     .   .   |      .
+            |      . {second}    .   '     '
+       +       ~+   {third}  +    *
+     .          .    {forth} '    .    .
+            '        + {fifth}           .    ~~+     .    *
      *           o        .      *   '       .      o
      '    +    '       *       .    +      *     .      +
         """)
@@ -268,98 +284,139 @@ Oh no, {user_guessed} is not in the word, try again!""")
        Would you look at that {name}, you found the hidden key!
           Maybe it would be worth it doing another round.
 Take a closer look at the difficulties before you choose your path.
-                     """)
-            print("                         The word was " + word + "\n")
-            print(f"                         Your score is {score}")
+
+                        The word was {word_col}
+
+                        Your score is {score}""")
         elif score == 25:
-            print(r"""      *     ,    o     .     .       +         .        *
-     .           .     ~+ _____ . _______ +    |   '        .
-        .   |       *    |___   \|    ___|   - o -       +
-     *    - o -            . \   |   |__   .   |      .
-            |      .   '   __/   |___   \    o             '
-       +       ~+         /   __/    \   |*       +    *
-     .               *   |   |___ ___/   |  .   '    .    .
-            '          . |_______|_____ /      ~~+     .   *
+            first = Fore.CYAN + "_____   _______" + Fore.WHITE
+            second = Fore.CYAN + r"|___   \|    ___|" + Fore.WHITE
+            third = Fore.CYAN + r"\   |   |__" + Fore.WHITE
+            forth = Fore.CYAN + r"__/   |___   \ " + Fore.WHITE
+            fifth = Fore.CYAN + r"/   __/    \   |" + Fore.WHITE
+            sixth = Fore.CYAN + "|   |___ ___/   |" + Fore.WHITE
+            seventh = Fore.CYAN + "|_______|_____ /" + Fore.WHITE
+            print(f"""      *     ,    o     .     .       +         .        *
+     .           .     ~+ {first} +    |   '        .
+        .   |       *    {second}   - o -       +
+     *    - o -            . {third}   .   |      .
+            |      .   '   {forth}   o             '
+       +       ~+         {fifth}*       +    *
+     .               *   {sixth}  .   '    .    .
+            '          . {seventh}      ~~+     .   *
      *           o        '    .    *               o
      '    +    '       *     '   +     .   *     .      +
             """)
             print(f"""
                     You are on a roll here!
 
-                        The word was {word}
+                        The word was {word_col}
 
                         Your score is {score}""")
         elif score == 50:
-            print(r"""      *     ,    o     .     .       +         .        *
-     .           .     ~+ _______ .______ +    |   '        .
-        .   |       *    |    ___|/  __  \   - o -       +
-     *    - o -          |   |__ |  |  |  |.   |      .
-            |      .   ' |___   \|  |  |  |  o             '
-       +       ~+          , \   |  |  |  |       +    *
-     .               *    ___/   |  |__|  | .   '    .    .
-            '          . |_____ / \______/     ~~+     .   *
+            first = Fore.CYAN + "_______  ______" + Fore.WHITE
+            second = Fore.CYAN + r"|    ___|/  __  \ " + Fore.WHITE
+            third = Fore.CYAN + r"|   |__ |  |  |  |" + Fore.WHITE
+            forth = Fore.CYAN + r"|___   \|  |  |  |" + Fore.WHITE
+            fifth = Fore.CYAN + r"\   |  |  |  |" + Fore.WHITE
+            sixth = Fore.CYAN + "___/   |  |__|  |" + Fore.WHITE
+            seventh = Fore.CYAN + r"|_____ / \______/" + Fore.WHITE
+            print(f"""      *     ,    o     .     .       +         .        *
+     .           .     ~+ {first} +    |   '        .
+        .   |       *    {second}  - o -       +
+     *    - o -          {third}.   |      .
+            |      .   ' {forth}  o             '
+       +       ~+          , {fifth}       +    *
+     .               *    {sixth} .   '    .    .
+            '          . {seventh}     ~~+     .   *
      *           o        '    .    *               o
      '    +    '       *     '   +     .   *     .      +
             """)
             print(f"""
      How are you doing this! Can I borrow some of that skill?
 
-                        The word was {word}
+                        The word was {word_col}
 
                         Your score is {score}""")
         elif score == 75:
-            print(r"""      *     ,    o     .     .       +         .        *
-     .           .    ~+ _________ _______ +      |         .
-        .   |       *   |______   |    ___|     - o -    +
-     *    - o -            o  /  /|   |__  .      |   .
-            |      .   '     /  / |___   \   o             '
-       +       ~+         + /  /    . \   |       +    *
-     .               *     /  / ,  ___/   | .   '    .    .
-            '          .  /__/    |_____ /     ~~+     .   *
+            first = Fore.CYAN + "_________ _______" + Fore.WHITE
+            second = Fore.CYAN + r"|______   |    ___|" + Fore.WHITE
+            third = Fore.CYAN + r"/  /|   |__" + Fore.WHITE
+            forth = Fore.CYAN + r"/  / |___   \ " + Fore.WHITE
+            fifth = Fore.CYAN + r"/  /" + Fore.WHITE
+            sixth = Fore.CYAN + r"\   |" + Fore.WHITE
+            seventh = Fore.CYAN + "/  /" + Fore.WHITE
+            eight = Fore.CYAN + r"___/   |" + Fore.WHITE
+            ninth = Fore.CYAN + r"/__/    |_____ /" + Fore.WHITE
+            print(f"""      *     ,    o     .     .       +         .        *
+     .           .    ~+ {first} +      |         .
+        .   |       *   {second}     - o -    +
+     *    - o -            o  {third}  .      |   .
+            |      .   '     {forth}  o             '
+       +       ~+         + {fifth}    . {sixth}       +    *
+     .               *     {seventh} ,  {eight} .   '    .    .
+            '          .  {ninth}     ~~+     .   *
      *           o        '    .    *               o
      '    +    '       *     '   +     .   *     .      +
             """)
             print(f"""
                   How high are you going to go!!!
 
-                        The word was {word}
+                        The word was {word_col}
 
                         Your score is {score}""")
         elif score == 100:
-            print(r"""      *     ,    o     .     .       +         .        *
-     .          .   ~+ ____  ______ . ______+      |         .
-        .   |       * /    |/  __  \ /  __  \    - o -    +
-     *    - o -      /_    |  |  |  |  |  |  |.    |   .
-            |      .   |   |  |  |  |  |  |  |   o          '
-       +       ~+      |   |  |  |  |  |  |  |    +    *
-     .               * |   |  |__|  |  |__|  |  '    .    .
-            '          |___|\______/ \______/  ~~+     .   *
+            first = Fore.CYAN + "____  ______" + Fore.WHITE
+            second = Fore.CYAN + r"______" + Fore.WHITE
+            third = Fore.CYAN + r"/    |/  __  \ /  __  \ " + Fore.WHITE
+            forth = Fore.CYAN + r"/_    |  |  |  |  |  |  |" + Fore.WHITE
+            fifth = Fore.CYAN + r"|   |  |  |  |  |  |  |" + Fore.WHITE
+            sixth = Fore.CYAN + r"|   |  |  |  |  |  |  |" + Fore.WHITE
+            seventh = Fore.CYAN + "|   |  |__|  |  |__|  |" + Fore.WHITE
+            eight = Fore.CYAN + r"|___|\______/ \______/" + Fore.WHITE
+            print(f"""      *     ,    o     .     .       +         .        *
+     .          .   ~+ {first} . {second}+      |         .
+        .   |       * {third}    - o -    +
+     *    - o -      {forth}.    |   .
+            |      .   {fifth}   o          '
+       +       ~+      {sixth}    +    *
+     .               * {seventh}  '    .    .
+            '          {eight}  ~~+     .   *
      *           o   '    '    .    *               o
      '    +    '       *     '   +     .   *     .      +
             """)
             print(f"""
                Not even the sky is a limit for you!
 
-                        The word was {word}
+                        The word was {word_col}
 
                         Your score is {score}""")
         else:
-            print(r"""      *     .    o     .     .       +         .        *
-     .           .      ~+ ____________   +    |   '        .
-        .   |       *    .-\    _     /-.    - o -       +
-     *    - o -         | (|   / |    |) | .   |      .
-            |      .   ' '-|     |    |-'    o             '
-       +       ~+         .\    _|_   /   *       +    *
-     .               *      '.      .'  .       '    .    .
-            '          .   + _`)  (`_      .   ~~+     .   *
-     *           o        ._/________\_             o
-     '    +    '       *  /____________\   *     .      +
+            first = Fore.YELLOW + "____________" + Fore.WHITE
+            second = Fore.YELLOW + r".-\    _     /-." + Fore.WHITE
+            third = Fore.YELLOW + r"| (|   / |    |) |" + Fore.WHITE
+            forth = Fore.YELLOW + r"'-|     |    |-'" + Fore.WHITE
+            fifth = Fore.YELLOW + r"\    _|_   /" + Fore.WHITE
+            sixth = Fore.YELLOW + "'.      .'" + Fore.WHITE
+            seventh = Fore.YELLOW + r"_`)  (`_" + Fore.WHITE
+            eight = Fore.YELLOW + r"_/________\_" + Fore.WHITE
+            ninth = Fore.YELLOW + r"/____________\ " + Fore.WHITE
+            print(f"""      *     .    o     .     .       +         .        *
+     .           .      ~+ {first}   +    |   '        .
+        .   |       *    {second}    - o -       +
+     *    - o -         {third} .   |      .
+            |      .   ' {forth}    o             '
+       +       ~+         .{fifth}   *       +    *
+     .               *      {sixth}  .       '    .    .
+            '          .   + {seventh}      .   ~~+     .   *
+     *           o        .{eight}             o
+     '    +    '       *  {ninth}  *     .      +
             """)
 
             print(f"""
             Congratulations {name} you guessed the word!
 
-                        The word was {word}
+                        The word was {word_col}
 
                         Your score is {score}""")
 
@@ -377,7 +434,7 @@ def level_difficulty():
     blue = Fore.BLUE + "special" + Fore.WHITE
     blue_s = Fore.BLUE + "S" + Fore.WHITE
 
-    if score >= 0:
+    if score >= 5:
         print("""
          Choose one of the four levels to get started...""" + "\n")
     else:
@@ -387,7 +444,7 @@ def level_difficulty():
     print(f"""                        For {green} click {green_e}
                         For {yellow} click {yellow_m}
                         For {red} click {red_h}""")
-    if score >= 0:
+    if score >= 5:
         print(f"""                  For the {blue} level click {blue_s}""")
 
     difficulty = True
@@ -434,7 +491,7 @@ def level_difficulty():
             """ + Fore.WHITE)
             lives = 10
             return lives
-        if score >= 0:
+        if score >= 5:
             if level == "S":
                 level_col = Fore.BLUE + level + Fore.WHITE
                 print(Fore.BLUE + r"""
@@ -448,7 +505,7 @@ def level_difficulty():
                 lives = 11
                 return lives
         else:
-            if score >= 27:
+            if score >= 5:
                 print("""
          Please write one of the following: E, M, H or S
              to choose the difficulty level you want.
@@ -486,7 +543,7 @@ def game_end():
     while play:
         if play == "y":
             print("\n")
-            print(f"            That is great {name}. Let's get to it!")
+            print(f"              That is great {name}. Let's get to it!")
             print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
         """)
