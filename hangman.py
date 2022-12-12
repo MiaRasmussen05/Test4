@@ -1,5 +1,5 @@
 """
-    the hanged man for difficulty hard
+The hanged man art for each difficulty
 """
 e_lives = {
     5:  """

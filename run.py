@@ -6,23 +6,13 @@ import random
 import string
 import colorama
 from colorama import Fore, Style
-# , Back, Style
-import gspread
-from google.oauth2.service_account import Credentials
+# , Back
 from words import easy_words, medium_words, hard_words, special_words
 from hangman import e_lives, m_lives, h_lives, s_lives
+import gameendart as game_end_art
+# from gameendart import game_over_art, hidden_art, special_art_twentyfive
+# from sendword import words_main
 colorama.init()
-
-SCOPE = [
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive.file",
-    "https://www.googleapis.com/auth/drive"
-    ]
-
-CREDS = Credentials.from_service_account_file('creds.json')
-SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('celestial_hang')
 
 
 def welcome_to():
@@ -73,12 +63,9 @@ def welcome_player():
     print("\n" + f"""                          Welcome {name}
                I hope you have fun and good luck!""" + "\n")
     time.sleep(1)
-    print("""
--.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
-        """)
+    separator()
     rules()
-    print("""
--.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-""" + "\n")
+    separator()
     time.sleep(1)
 
 
@@ -149,9 +136,7 @@ def game():
     alphabet = set(string.ascii_lowercase)
     needed_letters = set(word)
     guessed_letters = set()
-    print("""
--.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
-        """)
+    separator()
     time.sleep(0.5)
 
     while len(needed_letters) > 0 and lives > 0:
@@ -218,9 +203,7 @@ Oh no, {user_guessed} is not in the word, try again!""")
         else:
             print('\nInvalid character used! please type in a valid letter.')
 
-        print("""
--.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
-        """)
+        separator()
 
     if lives == 0:
         if level == "E":
@@ -232,30 +215,8 @@ Oh no, {user_guessed} is not in the word, try again!""")
         else:
             print(s_lives[lives])
 
-        print("""
--.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
-        """)
-        first = Fore.RED + "____" + Fore.WHITE
-        second = Fore.RED + r"___" + Fore.WHITE
-        third = Fore.RED + r"/ ___| __ _" + Fore.WHITE
-        forth = Fore.RED + r"_ __ ___   ___" + Fore.WHITE
-        fifth = Fore.RED + r"/ _ \__" + Fore.WHITE
-        sixth = Fore.RED + "_____ _ __" + Fore.WHITE
-        seventh = Fore.RED + r"| |  _ / _` | '_ ` _ \ / _ \ " + Fore.WHITE
-        eight = Fore.RED + r"| | | \ \ / / _ \ '__|" + Fore.WHITE
-        ninth = Fore.RED + r"| |_| | (_| | | | | | |  __/" + Fore.WHITE
-        tenth = Fore.RED + r"| |_| |\ V /  __/ |" + Fore.WHITE
-        eleventh = Fore.RED + r"\____|\__,_|_| |_| |_|\___|" + Fore.WHITE
-        twelfth = Fore.RED + r"\___/  \_/ \___|_|" + Fore.WHITE
-        print(f"""      *   '      o           .       +         .        *
-    .     {first} +   '    .    ~+        {second}    *       '     +
-        '{third}+{forth} * {fifth} . {sixth}    '
-  *     {seventh}{eight}'  *
-    ~+ .{ninth} {tenth}    .
-         {eleventh}  {twelfth}  *
-     +   *           o     '   .  +       *       '     o    ~+
-        '    +    '       *      '    o       *     .      +
-        """)
+        separator()
+        game_end_art.game_over_art()
         print(f"""
                   Oh no, {name}, you've been hanged!
 
@@ -272,23 +233,8 @@ Oh no, {user_guessed} is not in the word, try again!""")
         elif level == "S":
             score += 4
 
-        if score == 5:
-            first = Fore.YELLOW + ",------." + Fore.WHITE
-            second = Fore.YELLOW + r'/   ,--.  "______________' + Fore.WHITE
-            third = Fore.YELLOW + r"|   |    |                 |" + Fore.WHITE
-            forth = Fore.YELLOW + r"\   '--'  .__||__|__||___'" + Fore.WHITE
-            fifth = Fore.YELLOW + r'"------"' + Fore.WHITE
-            print(f"""      *          o     .     .       +         .        *
-     .                  ~+                +    |   '        .
-        .   |       *     .     '     '      - o -       +
-     *    - o -        {first}  *     .   .   |      .
-            |      . {second}    .   '     '
-       +       ~+   {third}  +    *
-     .          .    {forth} '    .    .
-            '        + {fifth}           .    ~~+     .    *
-     *           o        .      *   '       .      o
-     '    +    '       *       .    +      *     .      +
-        """)
+        if score == 32:
+            game_end_art.hidden_art()
             print(f"""
        Would you look at that {name}, you found the hidden key!
           Maybe it would be worth it doing another round.
@@ -298,24 +244,7 @@ Take a closer look at the difficulties before you choose your path.
 
                         Your score is {score}""")
         elif score == 25:
-            first = Fore.CYAN + "_____   _______" + Fore.WHITE
-            second = Fore.CYAN + r"|___   \|    ___|" + Fore.WHITE
-            third = Fore.CYAN + r"\   |   |__" + Fore.WHITE
-            forth = Fore.CYAN + r"__/   |___   \ " + Fore.WHITE
-            fifth = Fore.CYAN + r"/   __/    \   |" + Fore.WHITE
-            sixth = Fore.CYAN + "|   |___ ___/   |" + Fore.WHITE
-            seventh = Fore.CYAN + "|_______|_____ /" + Fore.WHITE
-            print(f"""      *     ,    o     .     .       +         .        *
-     .           .     ~+ {first} +    |   '        .
-        .   |       *    {second}   - o -       +
-     *    - o -            . {third}   .   |      .
-            |      .   '   {forth}   o             '
-       +       ~+         {fifth}*       +    *
-     .               *   {sixth}  .   '    .    .
-            '          . {seventh}      ~~+     .   *
-     *           o        '    .    *               o
-     '    +    '       *     '   +     .   *     .      +
-            """)
+            game_end_art.art_twentyfive()
             print(f"""
                     You are on a roll here!
 
@@ -323,24 +252,7 @@ Take a closer look at the difficulties before you choose your path.
 
                         Your score is {score}""")
         elif score == 50:
-            first = Fore.CYAN + "_______  ______" + Fore.WHITE
-            second = Fore.CYAN + r"|    ___|/  __  \ " + Fore.WHITE
-            third = Fore.CYAN + r"|   |__ |  |  |  |" + Fore.WHITE
-            forth = Fore.CYAN + r"|___   \|  |  |  |" + Fore.WHITE
-            fifth = Fore.CYAN + r"\   |  |  |  |" + Fore.WHITE
-            sixth = Fore.CYAN + "___/   |  |__|  |" + Fore.WHITE
-            seventh = Fore.CYAN + r"|_____ / \______/" + Fore.WHITE
-            print(f"""      *     ,    o     .     .       +         .        *
-     .           .     ~+ {first} +    |   '        .
-        .   |       *    {second}  - o -       +
-     *    - o -          {third}.   |      .
-            |      .   ' {forth}  o             '
-       +       ~+          , {fifth}       +    *
-     .               *    {sixth} .   '    .    .
-            '          . {seventh}     ~~+     .   *
-     *           o        '    .    *               o
-     '    +    '       *     '   +     .   *     .      +
-            """)
+            game_end_art.art_fifty()
             print(f"""
      How are you doing this! Can I borrow some of that skill?
 
@@ -348,26 +260,7 @@ Take a closer look at the difficulties before you choose your path.
 
                         Your score is {score}""")
         elif score == 75:
-            first = Fore.CYAN + "_________ _______" + Fore.WHITE
-            second = Fore.CYAN + r"|______   |    ___|" + Fore.WHITE
-            third = Fore.CYAN + r"/  /|   |__" + Fore.WHITE
-            forth = Fore.CYAN + r"/  / |___   \ " + Fore.WHITE
-            fifth = Fore.CYAN + r"/  /" + Fore.WHITE
-            sixth = Fore.CYAN + r"\   |" + Fore.WHITE
-            seventh = Fore.CYAN + "/  /" + Fore.WHITE
-            eight = Fore.CYAN + r"___/   |" + Fore.WHITE
-            ninth = Fore.CYAN + r"/__/    |_____ /" + Fore.WHITE
-            print(f"""      *     ,    o     .     .       +         .        *
-     .           .    ~+ {first} +      |         .
-        .   |       *   {second}     - o -    +
-     *    - o -            o  {third}  .      |   .
-            |      .   '     {forth}  o             '
-       +       ~+         + {fifth}    . {sixth}       +    *
-     .               *     {seventh} ,  {eight} .   '    .    .
-            '          .  {ninth}     ~~+     .   *
-     *           o        '    .    *               o
-     '    +    '       *     '   +     .   *     .      +
-            """)
+            game_end_art.art_seventyfive()
             print(f"""
                   How high are you going to go!!!
 
@@ -375,25 +268,7 @@ Take a closer look at the difficulties before you choose your path.
 
                         Your score is {score}""")
         elif score == 100:
-            first = Fore.CYAN + "____  ______" + Fore.WHITE
-            second = Fore.CYAN + r"______" + Fore.WHITE
-            third = Fore.CYAN + r"/    |/  __  \ /  __  \ " + Fore.WHITE
-            forth = Fore.CYAN + r"/_    |  |  |  |  |  |  |" + Fore.WHITE
-            fifth = Fore.CYAN + r"|   |  |  |  |  |  |  |" + Fore.WHITE
-            sixth = Fore.CYAN + r"|   |  |  |  |  |  |  |" + Fore.WHITE
-            seventh = Fore.CYAN + "|   |  |__|  |  |__|  |" + Fore.WHITE
-            eight = Fore.CYAN + r"|___|\______/ \______/" + Fore.WHITE
-            print(f"""      *     ,    o     .     .       +         .        *
-     .          .   ~+ {first} . {second}+      |         .
-        .   |       * {third}    - o -    +
-     *    - o -      {forth}.    |   .
-            |      .   {fifth}   o          '
-       +       ~+      {sixth}    +    *
-     .               * {seventh}  '    .    .
-            '          {eight}  ~~+     .   *
-     *           o   '    '    .    *               o
-     '    +    '       *     '   +     .   *     .      +
-            """)
+            game_end_art.art_onehundred()
             print(f"""
                Not even the sky is a limit for you!
 
@@ -401,27 +276,7 @@ Take a closer look at the difficulties before you choose your path.
 
                         Your score is {score}""")
         else:
-            first = Fore.YELLOW + "____________" + Fore.WHITE
-            second = Fore.YELLOW + r".-\    _     /-." + Fore.WHITE
-            third = Fore.YELLOW + r"| (|   / |    |) |" + Fore.WHITE
-            forth = Fore.YELLOW + r"'-|     |    |-'" + Fore.WHITE
-            fifth = Fore.YELLOW + r"\    _|_   /" + Fore.WHITE
-            sixth = Fore.YELLOW + "'.      .'" + Fore.WHITE
-            seventh = Fore.YELLOW + r"_`)  (`_" + Fore.WHITE
-            eight = Fore.YELLOW + r"_/________\_" + Fore.WHITE
-            ninth = Fore.YELLOW + r"/____________\ " + Fore.WHITE
-            print(f"""      *     .    o     .     .       +         .        *
-     .           .      ~+ {first}   +    |   '        .
-        .   |       *    {second}    - o -       +
-     *    - o -         {third} .   |      .
-            |      .   ' {forth}    o             '
-       +       ~+         .{fifth}   *       +    *
-     .               *      {sixth}  .       '    .    .
-            '          .   + {seventh}      .   ~~+     .   *
-     *           o        .{eight}             o
-     '    +    '       *  {ninth}  *     .      +
-            """)
-
+            game_end_art.normal_art()
             print(f"""
             Congratulations {name} you guessed the word!
 
@@ -443,7 +298,7 @@ def level_difficulty():
     blue = Fore.BLUE + "special" + Fore.WHITE
     blue_s = Fore.BLUE + "S" + Fore.WHITE
 
-    if score >= 5:
+    if score >= 32:
         print("""
          Choose one of the four levels to get started...""" + "\n")
     else:
@@ -453,7 +308,7 @@ def level_difficulty():
     print(f"""                        For {green} click {green_e}
                         For {yellow} click {yellow_m}
                         For {red} click {red_h}""")
-    if score >= 5:
+    if score >= 32:
         print(f"""                  For the {blue} level click {blue_s}""")
 
     difficulty = True
@@ -463,8 +318,8 @@ def level_difficulty():
         global level_col
         level = input(f"""
             {name} please choose a difficulty here: """).upper().strip(' ')
-        print("\n" + """
--.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-""")
+        print("")
+        separator()
         time.sleep(0.4)
         if level == "E":
             level_col = Fore.GREEN + level + Fore.WHITE
@@ -500,7 +355,7 @@ def level_difficulty():
             """ + Fore.WHITE)
             lives = 10
             return lives
-        if score >= 5:
+        if score >= 32:
             if level == "S":
                 level_col = Fore.BLUE + level + Fore.WHITE
                 print(Fore.BLUE + r"""
@@ -514,7 +369,7 @@ def level_difficulty():
                 lives = 11
                 return lives
         else:
-            if score >= 5:
+            if score >= 32:
                 print("""
          Please write one of the following: E, M, H or S
              to choose the difficulty level you want.
@@ -530,9 +385,7 @@ def choosen():
     """
     Message to show the player which level they have choosen as the game loads
     """
-    print("""
--.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
-        """)
+    separator()
     print(f"             {name} you choose {level_col} so let's get started!")
 
 
@@ -553,18 +406,13 @@ def game_end():
         if play == "y":
             print("\n")
             print(f"              That is great {name}. Let's get to it!")
-            print("""
--.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
-        """)
+            separator()
             game()
             game_end()
         elif play == "n":
-            print("""
--.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
-        """)
-            new_words()
-            print("""
--.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-""")
+            separator()
+            # words_main()
+            # separator()
             print(f"""
              Thanks you {name} for playing CelestialHang""")
             print("                    Hope to see you again soon!" + "\n")
@@ -584,98 +432,6 @@ def game_end():
               Want to try again? yes = y, no = n: """).lower().strip(' ')
 
 
-def new_words():
-    """
-    Let the visitor give own ideas for new words
-    while putting them on a spreadsheet for review
-    """
-    global ideas
-    if play == "n":
-        print("                      Wait one second please!\n")
-        time.sleep(2)
-        print("""      Before you go, do you have any words you want to add?
-   Maybe a word you would like to see become apart of the game
-                      Then now is your change!""")
-        time.sleep(0.7)
-        question = input("""
-              So do you have one? yes = y, no = n: """).lower().strip(' ')
-        print("""
--.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
-        """)
-        time.sleep(0.3)
-
-        while question:
-            if question == "y":
-                ideas = input("\nEnter your word here: ").strip(' ')
-                time.sleep(0.3)
-                if validatation(ideas) != ideas.isnumeric():
-                    update_ideas_worksheet(ideas)
-                    time.sleep(0.7)
-                    print(f"Thank you for sending in the word: {ideas}\n")
-                more = input("""
-Do you have more? yes = y, no = n: """).lower().strip(' ')
-
-                while more:
-                    if more == "y":
-                        ideas = input("\nEnter your word here: ")
-                        time.sleep(0.3)
-                        if validatation(ideas) != ideas.isnumeric():
-                            update_ideas_worksheet(ideas)
-                            time.sleep(0.7)
-                            print(f"""
-Thank you for sending in the word: {ideas}""")
-                        more = input("""
-Do you have more? yes = y, no = n: """).lower().strip(' ')
-                    elif more == "n":
-                        print("\nThank you for sharing your words!")
-                        print("Please come back soon!")
-                        return
-                    else:
-                        print("\ninvalid character! Please try again!")
-                        more = input("""
-Do you have more? yes = y, no = n: """).lower().strip(' ')
-            elif question == "n":
-                print("                           Then on you go!")
-                break
-            else:
-                print("\nI am sorry I didn't get that...")
-                question = input("""
-            So do you have one? yes = y, no = n: """).lower().strip(' ')
-    else:
-        pass
-
-
-def stars():
-    """
-    Let the visitor give stars and review of the game
-    while putting them on a spreadsheet
-    """
-
-
-def validatation(value):
-    """
-    Inside of the try, all string values converts into integers.
-    # Raises ValueError if strings cannot be converted into int,
-    or if there is more then 1 value for one word.
-    """
-    try:
-        if value == ideas.isnumeric():
-            raise ValueError(
-                f"A word is required, you provided {value}"
-            )
-    except ValueError:
-        pass
-
-
-def update_ideas_worksheet(data):
-    """
-    Update word ideas worksheet, add new row with the list data provided
-    """
-    update_words = SHEET.worksheet("ideas")
-    update_words.append_row([data])
-    print("\nYour word is now up for review.\n")
-
-
 def main():
     """
     Run all program functions
@@ -689,5 +445,6 @@ def main():
     game()
 
 
-main()
-game_end()
+if __name__ == "__main__":
+    main()
+    game_end()
