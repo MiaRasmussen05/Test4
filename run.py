@@ -11,6 +11,7 @@ from words import easy_words, medium_words, hard_words, special_words
 import hangman
 import gameendart as game_end_art
 from sendword import send
+from review import stars
 colorama.init()
 
 
@@ -411,6 +412,9 @@ def game_end():
         elif play == "n":
             separator()
             send()
+            separator()
+            time.sleep(1.2)
+            stars()
             separator()
             time.sleep(2)
             print(f"""

@@ -43,27 +43,28 @@ def new_words():
         """)
     time.sleep(0.3)
 
-    if question == "y":
-        print("""
+    while True:
+        if question == "y":
+            print("""
 If more then one word then they should be separated by commas.
 Up till 5 words is permitted.
 E.g: Virgo,Libra,Aries,Leo,Cancer""")
-        ideas = input("\nEnter your word/s here: ").strip(' ')
-        ideas_value = ideas.split(",")
+            ideas = input("\nEnter your word/s here: ").strip(' ')
+            ideas_value = ideas.split(",")
 
-        if validatetion(ideas_value):
-            if len(ideas) > 2:
-                print("\nThe words are valid!\n")
-            else:
-                print("\nThe word is valid!\n")
-    elif question == "n":
-        print("\n                           Then on you go!")
-    else:
-        print("\n                   I am sorry I didn't get that...")
-        question = input("""
+            if validatetion(ideas_value):
+                if len(ideas) > 2:
+                    print("\nThe words are valid!\n")
+                else:
+                    print("\nThe word is valid!\n")
+        elif question == "n":
+            print("\n                           Then on you go!")
+            break
+        else:
+            print("\n                   I am sorry I didn't get that...")
+            question = input("""
            So do you have one or more? yes = y, no = n: """).lower().strip(' ')
-
-    return ideas_value
+        return ideas_value
 
 
 def validatetion(values):
@@ -99,7 +100,10 @@ def update_worksheets(data, worksheet):
         print("\nYour words is now up for review.\n")
     else:
         print("\nYour word is now up for review.\n")
-    print(f"Thank you for sending in the word: {ideas}\n")
+    if len(ideas) > 2:
+        print(f"Thank you for sending in the words: {ideas}\n")
+    else:
+        print(f"Thank you for sending in the word: {ideas}\n")
 
 
 def send():

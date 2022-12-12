@@ -13,180 +13,180 @@ def stars():
     Let the visitor give stars and review of the game
     while putting them on a spreadsheet
     """
-    st = Fore.WHITE + "A" + Fore.YELLOW
-    nd = Fore.WHITE + r"/ \ " + Fore.YELLOW
-    rd = Fore.WHITE + r"_______/   \_______" + Fore.YELLOW
+    first = Fore.WHITE + "  A" + Fore.YELLOW
+    second = Fore.WHITE + r"/ \ " + Fore.YELLOW
+    third = Fore.WHITE + r"_______/   \_______" + Fore.YELLOW
     forth = Fore.WHITE + r"'.                 .'" + Fore.YELLOW
     fifth = Fore.WHITE + r"'.             .'" + Fore.YELLOW
     sixth = Fore.WHITE + "'.         .'" + Fore.YELLOW
     seventh = Fore.WHITE + r"/    .^.    \ " + Fore.YELLOW
     eight = Fore.WHITE + r"/ . '     ' . \ " + Fore.YELLOW
     ninth = Fore.WHITE + r"/'             '\ " + Fore.YELLOW
-    how_many_stars = float(input("""
-    Give stars here: """))
+    print("Please take a second to give us a review!")
+    print("Stars e.g: 2.7")
+    how_many_stars = int(float(input("""
+    Give stars here: """).strip(' ')))
     if how_many_stars == 3:
         print(Fore.YELLOW + r"""
-               A                      A                      A
-              /*\                    /*\                    /*\
-      _______/***\_______    _______/***\_______    _______/***\_______
-     '.*****************.'  '.*****************.'  '.*****************.'
-       '.*************.'      '.*************.'      '.*************.'
-         '.*********.'          '.*********.'          '.*********.'
-         /****.^.****\          /****.^.****\          /****.^.****\
-        /*. '     ' .*\        /*. '     ' .*\        /*. '     ' .*\
-       /'             '\      /'             '\      /'             '\
+          A                      A                      A
+         /*\                    /*\                    /*\
+ _______/***\_______    _______/***\_______    _______/***\_______
+'.*****************.'  '.*****************.'  '.*****************.'
+  '.*************.'      '.*************.'      '.*************.'
+    '.*********.'          '.*********.'          '.*********.'
+    /****.^.****\          /****.^.****\          /****.^.****\
+   /*. '     ' .*\        /*. '     ' .*\        /*. '     ' .*\
+  /'             '\      /'             '\      /'             '\
         """ + Fore.WHITE)
     elif how_many_stars >= 2.8:
         print(Fore.YELLOW + fr"""
-               A                      A                      {st}
-              /*\                    /*\                    {nd}
-      _______/***\_______    _______/***\_______    {rd}
-     '.*****************.'  '.*****************.'  '.*****************.'
-       '.*************.'      '.*************.'       .*************.'
-         '.*********.'          '.*********.'          '.*********.'
-         /****.^.****\          /****.^.****\          /****.^.****\
-        /*. '     ' .*\        /*. '     ' .*\        /*. '     ' .*\
-       /'             '\      /'             '\      /'             '\
+          A                      A                    {first}
+         /*\                    /*\                    {second}
+ _______/***\_______    _______/***\_______    {third}
+'.*****************.'  '.*****************.'  '.*****************.'
+  '.*************.'      '.*************.'      '.*************.'
+    '.*********.'          '.*********.'          '.*********.'
+    /****.^.****\          /****.^.****\          /****.^.****\
+   /*. '     ' .*\        /*. '     ' .*\        /*. '     ' .*\
+  /'             '\      /'             '\      /'             '\
     """ + Fore.WHITE)
     elif how_many_stars >= 2.5:
         print(Fore.YELLOW + fr"""
-               A                      A                      {st}
-              /*\                    /*\                    {nd}
-      _______/***\_______    _______/***\_______    {rd}
-     '.*****************.'  '.*****************.'  {forth}
-       '.*************.'      '.*************.'      {fifth}
-         '.*********.'          '.*********.'          '.*********.'
-         /****.^.****\          /****.^.****\          /****.^.****\
-        /*. '     ' .*\        /*. '     ' .*\        /*. '     ' .*\
-       /'             '\      /'             '\      /'             '\
+          A                      A                    {first}
+         /*\                    /*\                    {second}
+ _______/***\_______    _______/***\_______    {third}
+'.*****************.'  '.*****************.'  {forth}
+  '.*************.'      '.*************.'      {fifth}
+    '.*********.'          '.*********.'          '.*********.'
+    /****.^.****\          /****.^.****\          /****.^.****\
+   /*. '     ' .*\        /*. '     ' .*\        /*. '     ' .*\
+  /'             '\      /'             '\      /'             '\
     """ + Fore.WHITE)
     elif how_many_stars >= 2.3:
         print(Fore.YELLOW + fr"""
-               A                      A                      {st}
-              /*\                    /*\                    {nd}
-      _______/***\_______    _______/***\_______    {rd}
-     '.*****************.'  '.*****************.'  {forth}
-       '.*************.'      '.*************.'      {fifth}
-         '.*********.'          '.*********.'          {sixth}
-         /****.^.****\          /****.^.****\          {seventh}
-        /*. '     ' .*\        /*. '     ' .*\        /*. '     ' .*\
-       /'             '\      /'             '\      /'             '\
+          A                      A                    {first}
+         /*\                    /*\                    {second}
+ _______/***\_______    _______/***\_______    {third}
+'.*****************.'  '.*****************.'  {forth}
+  '.*************.'      '.*************.'      {fifth}
+    '.*********.'          '.*********.'          {sixth}
+    /****.^.****\          /****.^.****\          {seventh}
+   /*. '     ' .*\        /*. '     ' .*\        /*. '     ' .*\
+  /'             '\      /'             '\      /'             '\
     """ + Fore.WHITE)
     elif how_many_stars >= 2:
         print(Fore.YELLOW + fr"""
-               A                      A                      {st}
-              /*\                    /*\                    {nd}
-      _______/***\_______    _______/***\_______    {rd}
-     '.*****************.'  '.*****************.'  {forth}
-       '.*************.'      '.*************.'      {fifth}
-         '.*********.'          '.*********.'          {sixth}
-         /****.^.****\          /****.^.****\          {seventh}
-        /*. '     ' .*\        /*. '     ' .*\        {eight}
-       /'             '\      /'             '\      {ninth}
+          A                      A                    {first}
+         /*\                    /*\                    {second}
+ _______/***\_______    _______/***\_______    {third}
+'.*****************.'  '.*****************.'  {forth}
+  '.*************.'      '.*************.'      {fifth}
+    '.*********.'          '.*********.'          {sixth}
+    /****.^.****\          /****.^.****\          {seventh}
+   /*. '     ' .*\        /*. '     ' .*\        {eight}
+  /'             '\      /'             '\      {ninth}
     """ + Fore.WHITE)
     elif how_many_stars >= 1.8:
         print(Fore.YELLOW + fr"""
-               A                      {st}                      {st}
-              /*\                    {nd}                    {nd}
-      _______/***\_______    {rd}    {rd}
-     '.*****************.'  '.*****************.'  {forth}
-       '.*************.'      '.*************.'      {fifth}
-         '.*********.'          '.*********.'          {sixth}
-         /****.^.****\          /****.^.****\          {seventh}
-        /*. '     ' .*\        /*. '     ' .*\        {eight}
-       /'             '\      /'             '\      {ninth}
+          A                    {first}                    {first}
+         /*\                    {second}                   {second}
+ _______/***\_______    {third}    {third}
+'.*****************.'  '.*****************.'  {forth}
+  '.*************.'      '.*************.'      {fifth}
+    '.*********.'          '.*********.'          {sixth}
+    /****.^.****\          /****.^.****\          {seventh}
+   /*. '     ' .*\        /*. '     ' .*\        {eight}
+  /'             '\      /'             '\      {ninth}
     """ + Fore.WHITE)
     elif how_many_stars >= 1.5:
         print(Fore.YELLOW + fr"""
-               A                      {st}                      {st}
-              /*\                    {nd}                    {nd}
-      _______/***\_______    {rd}    {rd}
-     '.*****************.'  {forth}  {forth}
-       '.*************.'      {fifth}      {fifth}
-         '.*********.'          '.*********.'          {sixth}
-         /****.^.****\          /****.^.****\          {seventh}
-        /*. '     ' .*\        /*. '     ' .*\        {eight}
-       /'             '\      /'             '\      {ninth}
+          A                    {first}                    {first}
+         /*\                    {second}                   {second}
+ _______/***\_______    {third}    {third}
+'.*****************.'  {forth}  {forth}
+  '.*************.'      {fifth}      {fifth}
+    '.*********.'          '.*********.'          {sixth}
+    /****.^.****\          /****.^.****\          {seventh}
+   /*. '     ' .*\        /*. '     ' .*\        {eight}
+  /'             '\      /'             '\      {ninth}
     """ + Fore.WHITE)
     elif how_many_stars >= 1.3:
         print(Fore.YELLOW + fr"""
-               A                      {st}                      {st}
-              /*\                    {nd}                    {nd}
-      _______/***\_______    {rd}    {rd}
-     '.*****************.'  {forth}  {forth}
-       '.*************.'      {fifth}      {fifth}
-         '.*********.'          {sixth}          {sixth}
-         /****.^.****\          {seventh}          {seventh}
-        /*. '     ' .*\        /*. '     ' .*\        {eight}
-       /'             '\      /'             '\      {ninth}
+          A                    {first}                    {first}
+         /*\                    {second}                   {second}
+ _______/***\_______    {third}    {third}
+'.*****************.'  {forth}  {forth}
+  '.*************.'      {fifth}      {fifth}
+    '.*********.'          {sixth}          {sixth}
+    /****.^.****\          {seventh}         {seventh}
+   /*. '     ' .*\        /*. '     ' .*\        {eight}
+  /'             '\      /'             '\      {ninth}
     """ + Fore.WHITE)
     elif how_many_stars >= 1:
         print(Fore.YELLOW + fr"""
-               A                      {st}                      {st}
-              /*\                    {nd}                    {nd}
-      _______/***\_______    {rd}    {rd}
-     '.*****************.'  {forth}  {forth}
-       '.*************.'      {fifth}      {fifth}
-         '.*********.'          {sixth}          {sixth}
-         /****.^.****\          {seventh}          {seventh}
-        /*. '     ' .*\        {eight}        {eight}
-       /'             '\      {ninth}      {ninth}
+          A                    {first}                    {first}
+         /*\                    {second}                   {second}
+ _______/***\_______    {third}    {third}
+'.*****************.'  {forth}  {forth}
+  '.*************.'      {fifth}      {fifth}
+    '.*********.'          {sixth}          {sixth}
+    /****.^.****\          {seventh}         {seventh}
+   /*. '     ' .*\        {eight}       {eight}
+  /'             '\      {ninth}     {ninth}
     """ + Fore.WHITE)
     elif how_many_stars >= 0.8:
         print(Fore.YELLOW + fr"""
-               A                      {st}                      {st}
-              /*\                    {nd}                    {nd}
-      _______/***\_______    {rd}    {rd}
-     '.*****************.'  {forth}  {forth}
-       '.*************.'      {fifth}      {fifth}
-         '.*********.'          {sixth}          {sixth}
-         /****.^.****\          {seventh}          {seventh}
-        /*. '     ' .*\        {eight}        {eight}
-       /'             '\      {ninth}      {ninth}
+        {first}                    {first}                    {first}
+         {second}                   {second}                   {second}
+ {third}    {third}    {third}
+'.*****************.'  {forth}  {forth}
+  '.*************.'      {fifth}      {fifth}
+    '.*********.'          {sixth}          {sixth}
+    /****.^.****\          {seventh}         {seventh}
+   /*. '     ' .*\        {eight}       {eight}
+  /'             '\      {ninth}     {ninth}
     """ + Fore.WHITE)
     elif how_many_stars >= 0.5:
         print(Fore.YELLOW + fr"""
-               A                      {st}                      {st}
-              /*\                    {nd}                    {nd}
-      _______/***\_______    {rd}    {rd}
-     '.*****************.'  {forth}  {forth}
-       '.*************.'      {fifth}      {fifth}
-         '.*********.'          {sixth}          {sixth}
-         /****.^.****\          {seventh}          {seventh}
-        /*. '     ' .*\        {eight}        {eight}
-       /'             '\      {ninth}      {ninth}
+        {first}                    {first}                    {first}
+         {second}                   {second}                   {second}
+ {third}    {third}    {third}
+{forth}  {forth}  {forth}
+  {fifth}      {fifth}      {fifth}
+    '.*********.'          {sixth}          {sixth}
+    /****.^.****\          {seventh}         {seventh}
+   /*. '     ' .*\        {eight}       {eight}
+  /'             '\      {ninth}     {ninth}
     """ + Fore.WHITE)
     elif how_many_stars >= 0.3:
         print(Fore.YELLOW + fr"""
-               A                      {st}                      {st}
-              /*\                    {nd}                    {nd}
-      _______/***\_______    {rd}    {rd}
-     '.*****************.'  {forth}  {forth}
-       '.*************.'      {fifth}      {fifth}
-         '.*********.'          {sixth}          {sixth}
-         /****.^.****\          {seventh}          {seventh}
-        /*. '     ' .*\        {eight}        {eight}
-       /'             '\      {ninth}      {ninth}
+        {first}                    {first}                    {first}
+         {second}                   {second}                   {second}
+ {third}    {third}    {third}
+{forth}  {forth}  {forth}
+  {fifth}      {fifth}      {fifth}
+    {sixth}          {sixth}          {sixth}
+    {seventh}         {seventh}         {seventh}
+   /*. '     ' .*\        {eight}       {eight}
+  /'             '\      {ninth}     {ninth}
     """ + Fore.WHITE)
     elif how_many_stars >= 0:
         print(Fore.YELLOW + fr"""
-               A                      {st}                      {st}
-              /*\                    {nd}                    {nd}
-      _______/***\_______    {rd}    {rd}
-     '.*****************.'  {forth}  {forth}
-       '.*************.'      {fifth}      {fifth}
-         '.*********.'          {sixth}          {sixth}
-         /****.^.****\          {seventh}          {seventh}
-        /*. '     ' .*\        {eight}        {eight}
-       /'             '\      {ninth}      {ninth}
+        {first}                     {first}                    {first}
+         {second}                    {second}                   {second}
+ {third}     {third}    {third}
+{forth}   {forth}  {forth}
+  {fifth}       {fifth}      {fifth}
+    {sixth}           {sixth}          {sixth}
+    {seventh}          {seventh}         {seventh}
+   {eight}        {eight}       {eight}
+  {ninth}      {ninth}     {ninth}
     """ + Fore.WHITE)
-
 
 def main():
     """
-    Hi
+    hi
     """
-
     stars()
 
 
