@@ -8,10 +8,9 @@ import colorama
 from colorama import Fore, Style
 # , Back
 from words import easy_words, medium_words, hard_words, special_words
-from hangman import e_lives, m_lives, h_lives, s_lives
+import hangman
 import gameendart as game_end_art
-# from gameendart import game_over_art, hidden_art, special_art_twentyfive
-# from sendword import words_main
+from sendword import send
 colorama.init()
 
 
@@ -173,13 +172,13 @@ def game():
 
         guess = [lett if lett in guessed_letters else '_' for lett in word]
         if level == "E":
-            print(e_lives[lives])
+            print(hangman.__E_LIVES__[lives])
         elif level == "M":
-            print(m_lives[lives])
+            print(hangman.__M_LIVES__[lives])
         elif level == "H":
-            print(h_lives[lives])
+            print(hangman.__H_LIVES__[lives])
         else:
-            print(s_lives[lives])
+            print(hangman.__S_LIVES__[lives])
 
         print('The current word: ', ' '.join(guess))
 
@@ -207,13 +206,13 @@ Oh no, {user_guessed} is not in the word, try again!""")
 
     if lives == 0:
         if level == "E":
-            print(e_lives[lives])
+            print(hangman.__E_LIVES__[lives])
         elif level == "M":
-            print(m_lives[lives])
+            print(hangman.__M_LIVES__[lives])
         elif level == "H":
-            print(h_lives[lives])
+            print(hangman.__H_LIVES__[lives])
         else:
-            print(s_lives[lives])
+            print(hangman.__S_LIVES__[lives])
 
         separator()
         game_end_art.game_over_art()
@@ -233,7 +232,7 @@ Oh no, {user_guessed} is not in the word, try again!""")
         elif level == "S":
             score += 4
 
-        if score == 32:
+        if score == 3:
             game_end_art.hidden_art()
             print(f"""
        Would you look at that {name}, you found the hidden key!
@@ -402,7 +401,7 @@ def game_end():
         play = input(f"""
         Yes {name}! Want to try again? yes = y, no = n: """).lower().strip(' ')
 
-    while play:
+    while True:
         if play == "y":
             print("\n")
             print(f"              That is great {name}. Let's get to it!")
@@ -411,8 +410,9 @@ def game_end():
             game_end()
         elif play == "n":
             separator()
-            # words_main()
-            # separator()
+            send()
+            separator()
+            time.sleep(2)
             print(f"""
              Thanks you {name} for playing CelestialHang""")
             print("                    Hope to see you again soon!" + "\n")

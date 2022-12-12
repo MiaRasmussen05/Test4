@@ -1,7 +1,7 @@
 """
 The hanged man art for each difficulty
 """
-e_lives = {
+__E_LIVES__ = {
     5:  """
         *          o           .       +         .        *
      .                   ~+         *     +    |   '        .
@@ -83,7 +83,7 @@ e_lives = {
 }
 
 
-m_lives = {
+__M_LIVES__ = {
     7:  r"""
         *          o           .       +         .        *
      .                   ~+         *     +    |   '        .
@@ -190,7 +190,7 @@ m_lives = {
         """
 }
 
-h_lives = {
+__H_LIVES__ = {
     10: r"""
        *          o           .       +         .        *
      .                   ~+         *     +    |   '        .
@@ -336,7 +336,7 @@ h_lives = {
         """
 }
 
-s_lives = {
+__S_LIVES__ = {
     11: r"""
        *          o           .       +         .        *
      .                   ~+         *     +    |   '        .

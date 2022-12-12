@@ -1,10 +1,11 @@
 """
-Hi
+Files to store the functions, scope and credits for the player
+to be able to input their own word for review
 """
 import time
 import gspread
 from google.oauth2.service_account import Credentials
-from run import separator, play
+# import review
 
 
 SCOPE = [
@@ -22,46 +23,44 @@ SHEET = GSPREAD_CLIENT.open('celestial_hang')
 def new_words():
     """
     Let the visitor give own ideas for new words
-#   while putting them on a spreadsheet for review
+    while putting them on a spreadsheet for review
     Run a while loop to collect a valid string of words
     Until the string of words is valid the loop reapeats itself.
     1-5 words, separated by commas.
     """
     global ideas
-    while True:
-        if play == "n":
-            print("\n                      Wait one second please!")
-            time.sleep(2)
-            print("""
+    print("                      Wait one second please!")
+    time.sleep(2)
+    print("""
       Before you go, do you have any words you want to add?
    Maybe a word you would like to see become apart of the game
                       Then now is your change!""")
-            time.sleep(0.7)
-            question = input("""
+    time.sleep(0.7)
+    question = input("""
            So do you have one or more? yes = y, no = n: """).lower().strip(' ')
-            separator()
-            time.sleep(0.3)
+    print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
+    time.sleep(0.3)
 
-            if question == "y":
-                print("""
+    if question == "y":
+        print("""
 If more then one word then they should be separated by commas.
 Up till 5 words is permitted.
 E.g: Virgo,Libra,Aries,Leo,Cancer""")
-                ideas = input("\nEnter your word/s here: ").strip(' ')
-                ideas_value = ideas.split(",")
+        ideas = input("\nEnter your word/s here: ").strip(' ')
+        ideas_value = ideas.split(",")
 
-                if validatetion(ideas_value):
-                    if len(ideas) > 2:
-                        print("The words are valid!")
-                    else:
-                        print("The word is valid!")
-                    break
-            elif question == "n":
-                print("\n                           Then on you go!")
-                break
+        if validatetion(ideas_value):
+            if len(ideas) > 2:
+                print("\nThe words are valid!\n")
             else:
-                print("\n                   I am sorry I didn't get that...")
-                question = input("""
+                print("\nThe word is valid!\n")
+    elif question == "n":
+        print("\n                           Then on you go!")
+    else:
+        print("\n                   I am sorry I didn't get that...")
+        question = input("""
            So do you have one or more? yes = y, no = n: """).lower().strip(' ')
 
     return ideas_value
@@ -103,104 +102,11 @@ def update_worksheets(data, worksheet):
     print(f"Thank you for sending in the word: {ideas}\n")
 
 
-def words_main():
+def send():
     """
     Run all program functions
     """
     data = new_words()
     ideas_value = [str(num) for num in data]
     update_worksheets(ideas_value, "ideas")
-
-
-# def new_words():
-#     """
-#     Let the visitor give own ideas for new words
-#     while putting them on a spreadsheet for review
-#     """
-#     global ideas
-#     if play == "n":
-#         print("                      Wait one second please!\n")
-#         time.sleep(2)
-#         print("""      Before you go, do you have any words you want to add?
-#    Maybe a word you would like to see become apart of the game
-#                       Then now is your change!""")
-#         time.sleep(0.7)
-#         question = input("""
-#               So do you have one? yes = y, no = n: """).lower().strip(' ')
-#         separator()
-#         time.sleep(0.3)
-
-#         while True:
-#             if question == "n":
-#                 ideas = input("\nEnter your word here: ").strip(' ')
-#                 update_ideas_worksheet(ideas)
-#                 time.sleep(1.2)
-#                 print(f"Thank you for sending in the word: {ideas}\n")
-#                 time.sleep(0.3)
-
-#         while True:
-#             if question == "y":
-#                 ideas = input("\nEnter your word here: ").strip(' ')
-#                 update_ideas_worksheet(ideas)
-#                 time.sleep(1.2)
-#                 print(f"Thank you for sending in the word: {ideas}\n")
-#                 time.sleep(0.3)
-#                 more = input("""
-# D00o you have more? yes = y, no = n: """).lower().strip(' ')
-#                 if more != "y":
-#                     ideas = input("\nEnter your word here: ").strip(' ')
-#                     update_ideas_worksheet(ideas)
-#                     time.sleep(1.2)
-#                     print(f"Thank you for sending in the word: {ideas}\n")
-#                     more = input("""
-# Do you have more? yes = y, no = n: """).lower().strip(' ')
-#                 elif more != "n":
-#                     print("\nThank you for sharing your words!")
-#                     print("Please come back soon!")
-#                     break
-
-#                 else:
-#                     print("\ninvalid character! Please try again!")
-#                     more = input("""
-# Do you have more? yes = y, no = n: """).lower().strip(' ')
-#             elif question == "n":
-#                 print("                           Then on you go!")
-#                 break
-#             else:
-#                 print("\nI am sorry I didn't get that...")
-#                 question = input("""
-#               So do you have one? yes = y, no = n: """).lower().strip(' ')
-
-
-# def stars():
-#     """
-#     Let the visitor give stars and review of the game
-#     while putting them on a spreadsheet
-#     """
-
-
-# def validatation(value):
-#     """
-#     Inside of the try, all string values converts into integers.
-#     # Raises ValueError if strings cannot be converted into int,
-#     or if there is more then 1 value for one word.
-#     """
-#     try:
-#         if value == ideas.isnumeric():
-#             raise ValueError(
-#                 f"A word is required, you provided {value}"
-#             )
-#     except ValueError:
-#         pass
-
-
-# def update_ideas_worksheet(data):
-#     """
-#     Update word ideas worksheet, add new row with the list data provided
-#     """
-#     update_words = SHEET.worksheet("ideas")
-#     update_words.append_row([data])
-#     print("\nYour word is now up for review.\n")
-
-
-# new_words()
+    # review.
