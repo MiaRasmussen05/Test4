@@ -111,6 +111,6 @@ def send():
     Run all program functions
     """
     data = new_words()
-    ideas_value = [str(num) for num in data]
+    ideas_value = [int(num) for num in data]
     update_worksheets(ideas_value, "ideas")
     # review.

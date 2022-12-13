@@ -122,12 +122,32 @@ def get_word():
 score = 0
 
 
+def word_spaces():
+    """
+    Function to change the spaces in the game answer into slashes
+    """
+    full_word = []
+
+    for letter in word:
+        if letter == " ":
+            letter = "/"
+            full_word.append(letter)
+        else:
+            full_word.append(letter)
+
+    game_word = ''.join(full_word)
+
+    return game_word
+
+
 def game():
     """
     Function for the actul game play
     """
     global lives
     global score
+    global guess
+    global word
     lives = level_difficulty()
     time.sleep(1)
     choosen()
@@ -170,6 +190,8 @@ def game():
             elif lives >= 0:
                 print('\n' + 'Lives left:' + Fore.RED, lives, Fore.WHITE)
         print('Score:', score, )
+
+        word_spaces()
 
         guess = [lett if lett in guessed_letters else '_' for lett in word]
         if level == "E":

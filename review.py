@@ -24,8 +24,8 @@ def stars():
     ninth = Fore.WHITE + r"/'             '\ " + Fore.YELLOW
     print("Please take a second to give us a review!")
     print("Stars e.g: 2.7")
-    how_many_stars = int(float(input("""
-    Give stars here: """).strip(' ')))
+    how_many_stars = float(input("""
+    Give stars here: """).strip(' '))
     if how_many_stars == 3:
         print(Fore.YELLOW + r"""
           A                      A                      A
@@ -183,11 +183,13 @@ def stars():
   {ninth}      {ninth}     {ninth}
     """ + Fore.WHITE)
 
-def main():
-    """
-    hi
-    """
-    stars()
+
+# def main():
+#     """
+#     hi
+#     """
+
+#     stars()
 
 
-main()
+# main()
