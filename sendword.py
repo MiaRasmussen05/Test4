@@ -51,13 +51,12 @@ Up till 5 words is permitted.
 E.g: Virgo,Libra,Aries,Leo,Cancer""")
             ideas = input("\nEnter your word/s here: ").strip(' ')
             ideas_value = ideas.split(",")
-            if validatetion(ideas_value):
-                if len(ideas) > 2:
-                    print("\nThe words are valid!\n")
-                else:
-                    print("\nThe word is valid!\n")
-                update_ideas_worksheets()
-                return ideas_value
+            if len(ideas_value) > 2:
+                print("\nThe words are valid!\n")
+            else:
+                print("\nThe word is valid!\n")
+            # update_ideas_worksheet(ideas_value, "ideas")
+            break
         elif question == "n":
             break
         else:
@@ -68,48 +67,27 @@ E.g: Virgo,Libra,Aries,Leo,Cancer""")
                 print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
         """)
+    return ideas_value
 
 
-def validatetion(values):
-    """
-    Inside of the try, all string values converts into integers.
-    Raises ValueError if strings cannot be converted into int,
-    or if there is more then 1 value for one word.
-    """
-    try:
-        if len(values) > 5:
-            raise ValueError(
-                f"Exactly 6 values required, you provided {len(values)}"
-            )
-        elif isinstance(ideas, int) and isinstance(ideas, float):
-            raise ValueError(
-                "Input must be a number"
-            )
-    except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
-        return False
-
-    return True
-
-
-def update_ideas_worksheets():
+def update_ideas_worksheet(data, worksheet):
     """
     Receives a list of integers to be inserted into a worksheet
     Update the relevant worksheet with the data provided
     """
-    if len(ideas) > 2:
+    if len(ideas_value) > 2:
         print("Sending words into review...\n")
     else:
         print("Sending word into review...\n")
 
-    worksheet_to_update = SHEET.worksheet("ideas")
-    worksheet_to_update.append_row([ideas_value])
+    worksheet_to_update = SHEET.worksheet(worksheet)
+    worksheet_to_update.append_row(data)
 
-    if len(ideas) > 2:
+    if len(ideas_value) > 2:
         print("\nYour words is now up for review.\n")
     else:
         print("\nYour word is now up for review.\n")
-    if len(ideas) > 2:
+    if len(ideas_value) > 2:
         print(f"Thank you for sending in the words: {ideas}\n")
     else:
         print(f"Thank you for sending in the word: {ideas}\n")
@@ -119,4 +97,6 @@ def send_new_words():
     """
     Run functions
     """
-    new_words()
+    data = new_words()
+    ideas_value = [str(num) for num in data]
+    update_ideas_worksheet(ideas_value, "ideas")
