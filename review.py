@@ -2,10 +2,23 @@
 File to store the functions for the player to give the game stars
 and a review if they want to.
 """
-
+import time
+import gspread
+from google.oauth2.service_account import Credentials
 import colorama
 from colorama import Fore
 colorama.init()
+
+SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+    ]
+
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('celestial_hang')
 
 
 def stars():
@@ -13,6 +26,7 @@ def stars():
     Let the visitor give stars and review of the game
     while putting them on a spreadsheet
     """
+    global classification
     first = Fore.WHITE + "  A" + Fore.YELLOW
     second = Fore.WHITE + r"/ \ " + Fore.YELLOW
     third = Fore.WHITE + r"_______/   \_______" + Fore.YELLOW
@@ -22,11 +36,15 @@ def stars():
     seventh = Fore.WHITE + r"/    .^.    \ " + Fore.YELLOW
     eight = Fore.WHITE + r"/ . '     ' . \ " + Fore.YELLOW
     ninth = Fore.WHITE + r"/'             '\ " + Fore.YELLOW
+    print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
     print("Please take a second to give us a review!")
     print("Stars e.g: 2.7")
-    how_many_stars = float(input("""
+    classification = float(input("""
     Give stars here: """).strip(' '))
-    if how_many_stars == 3:
+    time.sleep(0.4)
+    if classification >= 3:
         print(Fore.YELLOW + r"""
           A                      A                      A
          /*\                    /*\                    /*\
@@ -38,7 +56,7 @@ def stars():
    /*. '     ' .*\        /*. '     ' .*\        /*. '     ' .*\
   /'             '\      /'             '\      /'             '\
         """ + Fore.WHITE)
-    elif how_many_stars >= 2.8:
+    elif classification >= 2.8:
         print(Fore.YELLOW + fr"""
           A                      A                    {first}
          /*\                    /*\                    {second}
@@ -50,7 +68,7 @@ def stars():
    /*. '     ' .*\        /*. '     ' .*\        /*. '     ' .*\
   /'             '\      /'             '\      /'             '\
     """ + Fore.WHITE)
-    elif how_many_stars >= 2.5:
+    elif classification >= 2.5:
         print(Fore.YELLOW + fr"""
           A                      A                    {first}
          /*\                    /*\                    {second}
@@ -62,7 +80,7 @@ def stars():
    /*. '     ' .*\        /*. '     ' .*\        /*. '     ' .*\
   /'             '\      /'             '\      /'             '\
     """ + Fore.WHITE)
-    elif how_many_stars >= 2.3:
+    elif classification >= 2.3:
         print(Fore.YELLOW + fr"""
           A                      A                    {first}
          /*\                    /*\                    {second}
@@ -74,7 +92,7 @@ def stars():
    /*. '     ' .*\        /*. '     ' .*\        /*. '     ' .*\
   /'             '\      /'             '\      /'             '\
     """ + Fore.WHITE)
-    elif how_many_stars >= 2:
+    elif classification >= 2:
         print(Fore.YELLOW + fr"""
           A                      A                    {first}
          /*\                    /*\                    {second}
@@ -86,7 +104,7 @@ def stars():
    /*. '     ' .*\        /*. '     ' .*\        {eight}
   /'             '\      /'             '\      {ninth}
     """ + Fore.WHITE)
-    elif how_many_stars >= 1.8:
+    elif classification >= 1.8:
         print(Fore.YELLOW + fr"""
           A                    {first}                    {first}
          /*\                    {second}                   {second}
@@ -98,7 +116,7 @@ def stars():
    /*. '     ' .*\        /*. '     ' .*\        {eight}
   /'             '\      /'             '\      {ninth}
     """ + Fore.WHITE)
-    elif how_many_stars >= 1.5:
+    elif classification >= 1.5:
         print(Fore.YELLOW + fr"""
           A                    {first}                    {first}
          /*\                    {second}                   {second}
@@ -110,7 +128,7 @@ def stars():
    /*. '     ' .*\        /*. '     ' .*\        {eight}
   /'             '\      /'             '\      {ninth}
     """ + Fore.WHITE)
-    elif how_many_stars >= 1.3:
+    elif classification >= 1.3:
         print(Fore.YELLOW + fr"""
           A                    {first}                    {first}
          /*\                    {second}                   {second}
@@ -122,7 +140,7 @@ def stars():
    /*. '     ' .*\        /*. '     ' .*\        {eight}
   /'             '\      /'             '\      {ninth}
     """ + Fore.WHITE)
-    elif how_many_stars >= 1:
+    elif classification >= 1:
         print(Fore.YELLOW + fr"""
           A                    {first}                    {first}
          /*\                    {second}                   {second}
@@ -134,7 +152,7 @@ def stars():
    /*. '     ' .*\        {eight}       {eight}
   /'             '\      {ninth}     {ninth}
     """ + Fore.WHITE)
-    elif how_many_stars >= 0.8:
+    elif classification >= 0.8:
         print(Fore.YELLOW + fr"""
         {first}                    {first}                    {first}
          {second}                   {second}                   {second}
@@ -146,7 +164,7 @@ def stars():
    /*. '     ' .*\        {eight}       {eight}
   /'             '\      {ninth}     {ninth}
     """ + Fore.WHITE)
-    elif how_many_stars >= 0.5:
+    elif classification >= 0.5:
         print(Fore.YELLOW + fr"""
         {first}                    {first}                    {first}
          {second}                   {second}                   {second}
@@ -158,7 +176,7 @@ def stars():
    /*. '     ' .*\        {eight}       {eight}
   /'             '\      {ninth}     {ninth}
     """ + Fore.WHITE)
-    elif how_many_stars >= 0.3:
+    elif classification >= 0.3:
         print(Fore.YELLOW + fr"""
         {first}                    {first}                    {first}
          {second}                   {second}                   {second}
@@ -170,7 +188,7 @@ def stars():
    /*. '     ' .*\        {eight}       {eight}
   /'             '\      {ninth}     {ninth}
     """ + Fore.WHITE)
-    elif how_many_stars >= 0:
+    elif classification >= 0:
         print(Fore.YELLOW + fr"""
         {first}                     {first}                    {first}
          {second}                    {second}                   {second}
@@ -182,14 +200,66 @@ def stars():
    {eight}        {eight}       {eight}
   {ninth}      {ninth}     {ninth}
     """ + Fore.WHITE)
+    else:
+        print("                   I am sorry I didn't get that...")
+        classification = float(input("""
+    Give stars here: """).strip(' '))
+    return classification
 
 
-# def main():
-#     """
-#     hi
-#     """
-
-#     stars()
+review_text = ""
 
 
-# main()
+def review():
+    """
+    Function for input of the review
+    """
+    global review_text
+
+    print("Do you want to send a review with you grade?")
+    question_review = input("""
+           Do you want to send one? yes = y, no = n: """).lower().strip(' ')
+    print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
+    time.sleep(0.3)
+    while True:
+        if question_review == "y":
+            review_text = input("Enter your review here: ")
+            update_review_worksheets()
+        elif question_review == "n":
+            update_review_worksheets()
+            print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
+            time.sleep(1.7)
+            print("                           Then on you go!")
+            break
+        return review_text
+
+
+def update_review_worksheets():
+    """
+    Receives a list of integers to be inserted into a worksheet
+    Update the relevant worksheet with the data provided
+    """
+    print("\nSending in your review...\n")
+
+    worksheet_to_update = SHEET.worksheet("stars")
+    worksheet_to_update.append_row([classification, review_text])
+
+    print("Thank you for sending in a review!\n")
+
+
+def star_review():
+    """
+    Hi
+    """
+    stars()
+    print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
+    review()
+
+
+# star_review()

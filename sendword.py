@@ -5,7 +5,6 @@ to be able to input their own word for review
 import time
 import gspread
 from google.oauth2.service_account import Credentials
-# import review
 
 
 SCOPE = [
@@ -29,6 +28,7 @@ def new_words():
     1-5 words, separated by commas.
     """
     global ideas
+    global ideas_value
     print("                      Wait one second please!")
     time.sleep(2)
     print("""
@@ -38,33 +38,36 @@ def new_words():
     time.sleep(0.7)
     question = input("""
            So do you have one or more? yes = y, no = n: """).lower().strip(' ')
-    print("""
+    if question != "n":
+        print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
         """)
     time.sleep(0.3)
 
     while True:
         if question == "y":
-            print("""
-If more then one word then they should be separated by commas.
+            print("""If more then one word, they should be separated by commas.
 Up till 5 words is permitted.
 E.g: Virgo,Libra,Aries,Leo,Cancer""")
             ideas = input("\nEnter your word/s here: ").strip(' ')
             ideas_value = ideas.split(",")
-
             if validatetion(ideas_value):
                 if len(ideas) > 2:
                     print("\nThe words are valid!\n")
                 else:
                     print("\nThe word is valid!\n")
+                update_ideas_worksheets()
+                return ideas_value
         elif question == "n":
-            print("\n                           Then on you go!")
             break
         else:
-            print("\n                   I am sorry I didn't get that...")
+            print("                   I am sorry I didn't get that...")
             question = input("""
            So do you have one or more? yes = y, no = n: """).lower().strip(' ')
-        return ideas_value
+            if question != "n":
+                print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
 
 
 def validatetion(values):
@@ -78,6 +81,10 @@ def validatetion(values):
             raise ValueError(
                 f"Exactly 6 values required, you provided {len(values)}"
             )
+        elif isinstance(ideas, int) and isinstance(ideas, float):
+            raise ValueError(
+                "Input must be a number"
+            )
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
         return False
@@ -85,7 +92,7 @@ def validatetion(values):
     return True
 
 
-def update_worksheets(data, worksheet):
+def update_ideas_worksheets():
     """
     Receives a list of integers to be inserted into a worksheet
     Update the relevant worksheet with the data provided
@@ -94,8 +101,10 @@ def update_worksheets(data, worksheet):
         print("Sending words into review...\n")
     else:
         print("Sending word into review...\n")
-    worksheet_to_update = SHEET.worksheet(worksheet)
-    worksheet_to_update.append_row(data)
+
+    worksheet_to_update = SHEET.worksheet("ideas")
+    worksheet_to_update.append_row([ideas_value])
+
     if len(ideas) > 2:
         print("\nYour words is now up for review.\n")
     else:
@@ -106,11 +115,8 @@ def update_worksheets(data, worksheet):
         print(f"Thank you for sending in the word: {ideas}\n")
 
 
-def send():
+def send_new_words():
     """
-    Run all program functions
+    Run functions
     """
-    data = new_words()
-    ideas_value = [int(num) for num in data]
-    update_worksheets(ideas_value, "ideas")
-    # review.
+    new_words()

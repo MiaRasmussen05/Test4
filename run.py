@@ -10,8 +10,8 @@ from colorama import Fore, Style
 from words import easy_words, medium_words, hard_words, special_words
 import hangman
 import gameendart as game_end_art
-from sendword import send
-from review import stars
+from sendword import send_new_words
+from review import star_review
 colorama.init()
 
 
@@ -122,22 +122,29 @@ def get_word():
 score = 0
 
 
-def word_spaces():
-    """
-    Function to change the spaces in the game answer into slashes
-    """
-    full_word = []
+# def word_spaces(words):
+#     """
+#     Function to change the spaces in the game answer into slashes
+#     """
+#     full_word = []
 
-    for letter in word:
-        if letter == " ":
-            letter = "/"
-            full_word.append(letter)
-        else:
-            full_word.append(letter)
+#     for letter in word:
+#         if letter == " ":
+#             letter = "/"
+#             full_word.append(letter)
+#         else:
+#             full_word.append(letter)
 
-    game_word = ''.join(full_word)
+#     game_word = ''.join(full_word)
 
-    return game_word
+#     return game_word
+#     game_word = ''
+#     for lett in words:
+#         if lett != ' ':
+#             game_word = game_word + '_'
+#         else:
+#             game_word = game_word + ' '
+#     return game_word
 
 
 def game():
@@ -154,6 +161,7 @@ def game():
     word = get_word()
     word_col = Fore.BLUE + Style.BRIGHT + word + Fore.WHITE
     alphabet = set(string.ascii_lowercase)
+    # let = set(string.ascii_lowercase + " ")
     needed_letters = set(word)
     guessed_letters = set()
     separator()
@@ -191,9 +199,10 @@ def game():
                 print('\n' + 'Lives left:' + Fore.RED, lives, Fore.WHITE)
         print('Score:', score, )
 
-        word_spaces()
-
         guess = [lett if lett in guessed_letters else '_' for lett in word]
+        # full_word = let + guess
+        # full_word = guess + word_spaces(word)
+
         if level == "E":
             print(hangman.__E_LIVES__[lives])
         elif level == "M":
@@ -433,11 +442,10 @@ def game_end():
             game_end()
         elif play == "n":
             separator()
-            send()
-            separator()
+            send_new_words()
+            # separator()
             time.sleep(1.2)
-            stars()
-            separator()
+            star_review()
             time.sleep(2)
             print(f"""
              Thanks you {name} for playing CelestialHang""")
