@@ -51,11 +51,11 @@ Up till 5 words is permitted.
 E.g: Virgo,Libra,Aries,Leo,Cancer""")
             ideas = input("\nEnter your word/s here:\n").strip(' ')
             ideas_value = ideas.split(",")
-            if len(ideas_value) > 2:
-                print("\nThe words are valid!\n")
-            else:
-                print("\nThe word is valid!\n")
-            # update_ideas_worksheet(ideas_value, "ideas")
+            # if len(ideas_value) > 2:
+            #     print("\nThe words are valid!\n")
+            # else:
+            #     print("\nThe word is valid!\n")
+            update_ideas_worksheet()
             break
         elif question == "n":
             break
@@ -67,10 +67,10 @@ E.g: Virgo,Libra,Aries,Leo,Cancer""")
                 print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
         """)
-    return ideas_value
+        return ideas_value
 
 
-def update_ideas_worksheet(data, worksheet):
+def update_ideas_worksheet():
     """
     Receives a list of integers to be inserted into a worksheet
     Update the relevant worksheet with the data provided
@@ -80,8 +80,8 @@ def update_ideas_worksheet(data, worksheet):
     else:
         print("Sending word into review...\n")
 
-    worksheet_to_update = SHEET.worksheet(worksheet)
-    worksheet_to_update.append_row(data)
+    worksheet_to_update = SHEET.worksheet("ideas")
+    worksheet_to_update.append_row(ideas_value)
 
     if len(ideas_value) > 2:
         print("\nYour words is now up for review.\n")
@@ -97,6 +97,4 @@ def send_new_words():
     """
     Run functions
     """
-    data = new_words()
-    ideas_value = [str(num) for num in data]
-    update_ideas_worksheet(ideas_value, "ideas")
+    new_words()
