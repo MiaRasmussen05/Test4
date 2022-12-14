@@ -42,7 +42,7 @@ def stars():
     print("Please take a second to give us a review!")
     print("Stars e.g: 2.7")
     classification = float(input("""
-    Give stars here:\n""").strip(' '))
+    Give stars here:\n""").strip(' ').replace(",", "."))
     time.sleep(0.4)
     if classification >= 3:
         print(Fore.YELLOW + r"""
