@@ -42,7 +42,7 @@ def stars():
     print("Please take a second to give us a review!")
     print("Stars e.g: 2.7")
     classification = float(input("""
-    Give stars here: """).strip(' '))
+    Give stars here:\n""").strip(' '))
     time.sleep(0.4)
     if classification >= 3:
         print(Fore.YELLOW + r"""
@@ -203,7 +203,7 @@ def stars():
     else:
         print("                   I am sorry I didn't get that...")
         classification = float(input("""
-    Give stars here: """).strip(' '))
+    Give stars here:\n""").strip(' '))
     return classification
 
 
@@ -218,14 +218,14 @@ def review():
 
     print("Do you want to send a review with you grade?")
     question_review = input("""
-           Do you want to send one? yes = y, no = n: """).lower().strip(' ')
+           Do you want to send one? yes = y, no = n:\n""").lower().strip(' ')
     print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
         """)
     time.sleep(0.3)
     while True:
         if question_review == "y":
-            review_text = input("Enter your review here: ")
+            review_text = input("Enter your review here:\n")
             update_review_worksheets()
         elif question_review == "n":
             update_review_worksheets()

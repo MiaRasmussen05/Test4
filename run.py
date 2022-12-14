@@ -58,7 +58,7 @@ def welcome_player():
     Run the rules function
     """
     global name
-    name_col = input("Please enter you name here: ")
+    name_col = input("Please enter you name here:\n")
     name = Fore.MAGENTA + name_col + Fore.WHITE
     print("\n" + f"""                          Welcome {name}
                I hope you have fun and good luck!""" + "\n")
@@ -215,7 +215,7 @@ def game():
         print('The current word: ', ' '.join(guess))
 
         user_guessed = input("""
-Please write a letter here: """).lower().strip(' ')
+Please write a letter here:\n""").lower().strip(' ')
 
         if user_guessed in alphabet - guessed_letters:
             guessed_letters.add(user_guessed)
@@ -348,7 +348,7 @@ def level_difficulty():
         global level
         global level_col
         level = input(f"""
-            {name} please choose a difficulty here: """).upper().strip(' ')
+            {name} please choose a difficulty here:\n""").upper().strip(' ')
         print("")
         separator()
         time.sleep(0.4)
@@ -428,10 +428,10 @@ def game_end():
 
     if lives == 0:
         play = input(f"""
-    That is to bad {name}! Want to try again? yes = y, no = n: """).strip(' ')
+    That is to bad {name}! Want to try again? yes = y, no = n:\n""").strip(' ')
     else:
         play = input(f"""
-        Yes {name}! Want to try again? yes = y, no = n: """).lower().strip(' ')
+       Yes {name}! Want to try again? yes = y, no = n:\n""").lower().strip(' ')
 
     while True:
         if play == "y":
@@ -463,7 +463,7 @@ def game_end():
             print("\n" + """
                 Sorry let's try that one more time!""" + "\n")
             play = input("""
-              Want to try again? yes = y, no = n: """).lower().strip(' ')
+              Want to try again? yes = y, no = n:\n""").lower().strip(' ')
 
 
 def main():

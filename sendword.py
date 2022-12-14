@@ -37,7 +37,7 @@ def new_words():
                       Then now is your change!""")
     time.sleep(0.7)
     question = input("""
-           So do you have one or more? yes = y, no = n: """).lower().strip(' ')
+          So do you have one or more? yes = y, no = n:\n""").lower().strip(' ')
     if question != "n":
         print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
@@ -49,7 +49,7 @@ def new_words():
             print("""If more then one word, they should be separated by commas.
 Up till 5 words is permitted.
 E.g: Virgo,Libra,Aries,Leo,Cancer""")
-            ideas = input("\nEnter your word/s here: ").strip(' ')
+            ideas = input("\nEnter your word/s here:\n").strip(' ')
             ideas_value = ideas.split(",")
             if len(ideas_value) > 2:
                 print("\nThe words are valid!\n")
@@ -62,7 +62,7 @@ E.g: Virgo,Libra,Aries,Leo,Cancer""")
         else:
             print("                   I am sorry I didn't get that...")
             question = input("""
-           So do you have one or more? yes = y, no = n: """).lower().strip(' ')
+          So do you have one or more? yes = y, no = n:\n""").lower().strip(' ')
             if question != "n":
                 print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
