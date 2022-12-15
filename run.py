@@ -204,7 +204,7 @@ def game():
             if letter in guessed_letters:
                 guess.append(letter)
             else:
-                guess.append('_')
+                guess.append('*')
 
         if level == "E":
             print(hangman.__E_LIVES__[lives])
