@@ -203,8 +203,8 @@ def game():
 
         guess = []
         for letter in word:
-            if letter == '-':
-                guess.append('-')
+            if letter == ' ':
+                guess.append(' ')
                 needed_letters.discard(letter)
             elif letter in guessed_letters:
                 guess.append(letter)
