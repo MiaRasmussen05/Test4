@@ -122,31 +122,6 @@ def get_word():
 score = 0
 
 
-# def word_spaces(words):
-#     """
-#     Function to change the spaces in the game answer into slashes
-#     """
-#     full_word = []
-
-#     for letter in word:
-#         if letter == " ":
-#             letter = "/"
-#             full_word.append(letter)
-#         else:
-#             full_word.append(letter)
-
-#     game_word = ''.join(full_word)
-
-#     return game_word
-#     game_word = ''
-#     for lett in words:
-#         if lett != ' ':
-#             game_word = game_word + '_'
-#         else:
-#             game_word = game_word + ' '
-#     return game_word
-
-
 def game():
     """
     Function for the actul game play
@@ -161,7 +136,6 @@ def game():
     word = get_word()
     word_col = Fore.BLUE + Style.BRIGHT + word + Fore.WHITE
     alphabet = set(string.ascii_lowercase)
-    # let = set(string.ascii_lowercase + " ")
     needed_letters = set(word)
     guessed_letters = set()
     separator()
@@ -272,7 +246,7 @@ Oh no, {user_guessed} is not in the word, try again!""")
         elif level == "S":
             score += 4
 
-        if score == 3:
+        if score == 32:
             game_end_art.hidden_art()
             print(f"""
        Would you look at that {name}, you found the hidden key!
