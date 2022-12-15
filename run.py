@@ -169,6 +169,8 @@ def game():
 
     while len(needed_letters) > 0 and lives > 0:
         print("Letters already used: ", ' '.join(sorted(guessed_letters)))
+        if not needed_letters:
+            break
         if level == "E":
             if lives >= 4:
                 print('\n' + 'Lives left:' + Fore.GREEN, lives, Fore.WHITE)
@@ -201,10 +203,13 @@ def game():
 
         guess = []
         for letter in word:
-            if letter in guessed_letters:
+            if letter == '-':
+                guess.append('-')
+                needed_letters.discard(letter)
+            elif letter in guessed_letters:
                 guess.append(letter)
             else:
-                guess.append('*')
+                guess.append('_')
 
         if level == "E":
             print(hangman.__E_LIVES__[lives])
