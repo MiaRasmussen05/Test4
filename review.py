@@ -235,6 +235,10 @@ def review():
             time.sleep(1.7)
             print("                           Then on you go!")
             break
+        else:
+            print("                   I am sorry I didn't get that...")
+            question_review = input("""
+           Do you want to send one? yes = y, no = n:\n""").lower().strip(' ')
         return review_text
 
 
