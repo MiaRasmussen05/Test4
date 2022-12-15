@@ -199,9 +199,12 @@ def game():
                 print('\n' + 'Lives left:' + Fore.RED, lives, Fore.WHITE)
         print('Score:', score, )
 
-        guess = [lett if lett in guessed_letters else '_' for lett in word]
-        # full_word = let + guess
-        # full_word = guess + word_spaces(word)
+        guess = []
+        for letter in word:
+            if letter in guessed_letters:
+                guess.append(letter)
+            else:
+                guess.append('_')
 
         if level == "E":
             print(hangman.__E_LIVES__[lives])
