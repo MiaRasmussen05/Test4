@@ -59,7 +59,7 @@ def welcome_player():
     """
     global name
     name_col = input("Please enter you name here:\n")
-    name = Fore.MAGENTA + name_col + Fore.WHITE
+    name = Fore.MAGENTA + Style.BRIGHT + name_col + Fore.WHITE
     print("\n" + f"""                          Welcome {name}
                I hope you have fun and good luck!""" + "\n")
     time.sleep(1)
