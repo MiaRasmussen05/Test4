@@ -115,6 +115,3 @@ def send_new_words():
             update_ideas_worksheet(ideas)
         elif not ideas:
             break
-
-
-send_new_words()
