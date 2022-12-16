@@ -45,7 +45,10 @@ def stars():
     validation = validate_data(classification)
     time.sleep(0.4)
     while validation is None or validation is False:
-        print("\nInvalid input. Please enter a number between 0 and 3.\n")
+        print("\nInvalid input. Please enter a number between 0 and 3.")
+        print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
         classification_input = input("Give stars here:\n").strip(' ')
         classification = classification_input.replace(",", ".")
         validation = validate_data(classification)
@@ -207,7 +210,10 @@ def stars():
   {ninth}      {ninth}     {ninth}
     """ + Fore.WHITE)
     else:
-        print("\nInvalid input. Please enter a number between 0 and 3.\n")
+        print("\nInvalid input. Please enter a number between 0 and 3.")
+    print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
 
 
 def validate_data(values):
@@ -239,19 +245,24 @@ def review():
     print("           Do you want to send a review with you grade?")
     question_review = input("""
             Do you want to send one? yes = y, no = n:\n""").lower().strip(' ')
-    print("""
+    if question_review != "n":
+        print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
         """)
     time.sleep(0.3)
     while True:
         if question_review == "y":
             review_text = input("Enter your review here:\n")
-            update_review_worksheets()
-        elif question_review == "n":
-            update_review_worksheets()
+            if len(review_text.split()) == 0:
+                print("Your review must contain at least one word.")
+            else:
+                update_review_worksheets()
+                break
             print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
         """)
+        elif question_review == "n":
+            update_review_worksheets()
             time.sleep(1.7)
             print("                          Then on you go!")
             break
@@ -259,7 +270,10 @@ def review():
             print("                   I am sorry I didn't get that...")
             question_review = input("""
             Do you want to send one? yes = y, no = n:\n""").lower().strip(' ')
-        return review_text
+            if question_review != "n":
+                print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
 
 
 def update_review_worksheets():
@@ -267,7 +281,10 @@ def update_review_worksheets():
     Receives a list of integers to be inserted into a worksheet
     Update the relevant worksheet with the data provided
     """
-    print("\nSending in your review...\n")
+    print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
+    print("Sending in your review...\n")
 
     worksheet_to_update = SHEET.worksheet("stars")
     worksheet_to_update.append_row([classification, review_text])
@@ -280,10 +297,4 @@ def star_review():
     Hi
     """
     stars()
-    print("""
--.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
-        """)
     review()
-
-
-star_review()
