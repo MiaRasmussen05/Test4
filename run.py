@@ -17,7 +17,7 @@ colorama.init()
 
 def welcome_to():
     """
-    Welcome to the game message
+    Welcome to the game art
     """
     print(r"""       __        __   _                            _
        \ \      / /__| | ___ ___  _ __ ___   ___  | |_ ___

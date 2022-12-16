@@ -41,11 +41,12 @@ def stars():
         """)
     print("Please take a second to give us a review!")
     print("Stars e.g: 2.7")
-    classification = float(input("""
-    Give stars here:\n""").strip(' ').replace(",", "."))
+    classification = input("""
+    Give stars here:\n""").strip(' ').replace(",", ".")
     time.sleep(0.4)
-    if classification >= 3:
-        print(Fore.YELLOW + r"""
+    if validate_data(classification):
+        if classification >= 3:
+            print(Fore.YELLOW + r"""
           A                      A                      A
          /*\                    /*\                    /*\
  _______/***\_______    _______/***\_______    _______/***\_______
@@ -56,8 +57,8 @@ def stars():
    /*. '     ' .*\        /*. '     ' .*\        /*. '     ' .*\
   /'             '\      /'             '\      /'             '\
         """ + Fore.WHITE)
-    elif classification >= 2.8:
-        print(Fore.YELLOW + fr"""
+        elif classification >= 2.8:
+            print(Fore.YELLOW + fr"""
           A                      A                    {first}
          /*\                    /*\                    {second}
  _______/***\_______    _______/***\_______    {third}
@@ -68,8 +69,8 @@ def stars():
    /*. '     ' .*\        /*. '     ' .*\        /*. '     ' .*\
   /'             '\      /'             '\      /'             '\
     """ + Fore.WHITE)
-    elif classification >= 2.5:
-        print(Fore.YELLOW + fr"""
+        elif classification >= 2.5:
+            print(Fore.YELLOW + fr"""
           A                      A                    {first}
          /*\                    /*\                    {second}
  _______/***\_______    _______/***\_______    {third}
@@ -80,8 +81,8 @@ def stars():
    /*. '     ' .*\        /*. '     ' .*\        /*. '     ' .*\
   /'             '\      /'             '\      /'             '\
     """ + Fore.WHITE)
-    elif classification >= 2.3:
-        print(Fore.YELLOW + fr"""
+        elif classification >= 2.3:
+            print(Fore.YELLOW + fr"""
           A                      A                    {first}
          /*\                    /*\                    {second}
  _______/***\_______    _______/***\_______    {third}
@@ -92,8 +93,8 @@ def stars():
    /*. '     ' .*\        /*. '     ' .*\        /*. '     ' .*\
   /'             '\      /'             '\      /'             '\
     """ + Fore.WHITE)
-    elif classification >= 2:
-        print(Fore.YELLOW + fr"""
+        elif classification >= 2:
+            print(Fore.YELLOW + fr"""
           A                      A                    {first}
          /*\                    /*\                    {second}
  _______/***\_______    _______/***\_______    {third}
@@ -104,8 +105,8 @@ def stars():
    /*. '     ' .*\        /*. '     ' .*\        {eight}
   /'             '\      /'             '\      {ninth}
     """ + Fore.WHITE)
-    elif classification >= 1.8:
-        print(Fore.YELLOW + fr"""
+        elif classification >= 1.8:
+            print(Fore.YELLOW + fr"""
           A                    {first}                    {first}
          /*\                    {second}                   {second}
  _______/***\_______    {third}    {third}
@@ -116,8 +117,8 @@ def stars():
    /*. '     ' .*\        /*. '     ' .*\        {eight}
   /'             '\      /'             '\      {ninth}
     """ + Fore.WHITE)
-    elif classification >= 1.5:
-        print(Fore.YELLOW + fr"""
+        elif classification >= 1.5:
+            print(Fore.YELLOW + fr"""
           A                    {first}                    {first}
          /*\                    {second}                   {second}
  _______/***\_______    {third}    {third}
@@ -128,8 +129,8 @@ def stars():
    /*. '     ' .*\        /*. '     ' .*\        {eight}
   /'             '\      /'             '\      {ninth}
     """ + Fore.WHITE)
-    elif classification >= 1.3:
-        print(Fore.YELLOW + fr"""
+        elif classification >= 1.3:
+            print(Fore.YELLOW + fr"""
           A                    {first}                    {first}
          /*\                    {second}                   {second}
  _______/***\_______    {third}    {third}
@@ -140,8 +141,8 @@ def stars():
    /*. '     ' .*\        /*. '     ' .*\        {eight}
   /'             '\      /'             '\      {ninth}
     """ + Fore.WHITE)
-    elif classification >= 1:
-        print(Fore.YELLOW + fr"""
+        elif classification >= 1:
+            print(Fore.YELLOW + fr"""
           A                    {first}                    {first}
          /*\                    {second}                   {second}
  _______/***\_______    {third}    {third}
@@ -152,8 +153,8 @@ def stars():
    /*. '     ' .*\        {eight}       {eight}
   /'             '\      {ninth}     {ninth}
     """ + Fore.WHITE)
-    elif classification >= 0.8:
-        print(Fore.YELLOW + fr"""
+        elif classification >= 0.8:
+            print(Fore.YELLOW + fr"""
         {first}                    {first}                    {first}
          {second}                   {second}                   {second}
  {third}    {third}    {third}
@@ -164,8 +165,8 @@ def stars():
    /*. '     ' .*\        {eight}       {eight}
   /'             '\      {ninth}     {ninth}
     """ + Fore.WHITE)
-    elif classification >= 0.5:
-        print(Fore.YELLOW + fr"""
+        elif classification >= 0.5:
+            print(Fore.YELLOW + fr"""
         {first}                    {first}                    {first}
          {second}                   {second}                   {second}
  {third}    {third}    {third}
@@ -176,8 +177,8 @@ def stars():
    /*. '     ' .*\        {eight}       {eight}
   /'             '\      {ninth}     {ninth}
     """ + Fore.WHITE)
-    elif classification >= 0.3:
-        print(Fore.YELLOW + fr"""
+        elif classification >= 0.3:
+            print(Fore.YELLOW + fr"""
         {first}                    {first}                    {first}
          {second}                   {second}                   {second}
  {third}    {third}    {third}
@@ -188,8 +189,8 @@ def stars():
    /*. '     ' .*\        {eight}       {eight}
   /'             '\      {ninth}     {ninth}
     """ + Fore.WHITE)
-    elif classification >= 0:
-        print(Fore.YELLOW + fr"""
+        elif classification >= 0:
+            print(Fore.YELLOW + fr"""
         {first}                     {first}                    {first}
          {second}                    {second}                   {second}
  {third}     {third}    {third}
@@ -200,11 +201,24 @@ def stars():
    {eight}        {eight}       {eight}
   {ninth}      {ninth}     {ninth}
     """ + Fore.WHITE)
-    else:
-        print("                   I am sorry I didn't get that...")
-        classification = float(input("""
-    Give stars here:\n""").strip(' '))
-    return classification
+        else:
+            print("I am sorry, but that is not a valid number.")
+            return stars()
+
+
+def validate_data(values):
+    """
+    Inside the try, converts all string values into integers.
+    Raises ValueError if strings cannot be converted into int,
+    or if there aren't exactly 6 values.
+    """
+    try:
+        if not values.isnumeric():
+            raise ValueError("Input must be a number")
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
+        return False
+    return True
 
 
 review_text = ""
@@ -242,25 +256,6 @@ def review():
         return review_text
 
 
-def validate_data(values):
-    """
-    Inside the try, converts all string values into integers.
-    Raises ValueError if strings cannot be converted into int,
-    or if there aren't exactly 6 values.
-    """
-    try:
-        [int(value) for value in values]
-        if len(values) != 1:
-            raise ValueError(
-                f"Sorry you provided {len(values)}, when only one was required"
-            )
-    except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
-        return False
-
-    return True
-
-
 def update_review_worksheets():
     """
     Receives a list of integers to be inserted into a worksheet
@@ -285,4 +280,4 @@ def star_review():
     review()
 
 
-# star_review()
+star_review()
