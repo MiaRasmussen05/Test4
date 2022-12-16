@@ -3,6 +3,7 @@ Files to store the functions, scope and credits for the player
 to be able to input their own word for review
 """
 import time
+import re
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -27,8 +28,8 @@ def new_words():
     Until the string of words is valid the loop reapeats itself.
     1-5 words, separated by commas.
     """
-    global ideas
-    global ideas_value
+    # global ideas
+    # global ideas_value
     print("                      Wait one second please!")
     time.sleep(2)
     print("""
@@ -36,39 +37,46 @@ def new_words():
    Maybe a word you would like to see become apart of the game
                       Then now is your change!""")
     time.sleep(0.7)
-    question = input("""
-          So do you have one or more? yes = y, no = n:\n""").lower().strip(' ')
-    if question != "n":
-        print("""
--.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
-        """)
-    time.sleep(0.3)
 
     while True:
+        question = input("""
+          So do you have one or more? yes = y, no = n:\n""").lower().strip(' ')
+        if question != "n":
+            print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+            """)
+        time.sleep(0.3)
+
         if question == "y":
             print("""If more then one word, they should be separated by commas.
 Up till 5 words is permitted.
 E.g: Virgo,Libra,Aries,Leo,Cancer""")
             ideas = input("\nEnter your word/s here:\n").strip(' ')
-            ideas_value = ideas.split(",")
-            if len(ideas_value) < 1 or len(ideas_value) > 5:
-                print("Please enter between 1 and 5 words separated by commas")
+            if not re.match(r'^[\w\s]+(,\s*[\w\s]+)*$', ideas):
+                print("Please enter a valid string of words.\n")
             else:
-                return True
+                ideas_value = ideas.split(",")
+                if 1 <= len(ideas_value) <= 5:
+                    return ideas_value
+                else:
+                    print("""
+            Please enter between 1 and 5 words, separated by commas\n""")
         elif question == "n":
-            return False
+            print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+            """)
+            break
         else:
             print("                   I am sorry I didn't get that...")
-            question = input("""
-          So do you have one or more? yes = y, no = n:\n""").lower().strip(' ')
-            if question != "n":
-                print("""
+            print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
-        """)
+            """)
+            continue
+        return False
         # return ideas_value
 
 
-def update_ideas_worksheet():
+def update_ideas_worksheet(ideas_value):
     """
     Receives a list of integers to be inserted into a worksheet
     Update the relevant worksheet with the data provided
@@ -78,9 +86,9 @@ def update_ideas_worksheet():
         # return
 
     if len(ideas_value) > 2:
-        print("Sending words into review...\n")
+        print("\nSending words into review...")
     else:
-        print("Sending word into review...\n")
+        print("\nSending word into review...")
 
     worksheet_to_update = SHEET.worksheet("ideas")
     worksheet_to_update.append_row(ideas_value)
@@ -90,9 +98,9 @@ def update_ideas_worksheet():
     else:
         print("\nYour word is now up for review.\n")
     if len(ideas_value) > 2:
-        print(f"Thank you for sending in the words: {ideas}\n")
+        print(f"Thank you for sending in the words: {ideas_value}\n")
     else:
-        print(f"Thank you for sending in the word: {ideas}\n")
+        print(f"Thank you for sending in the word: {ideas_value}\n")
 
 
 def send_new_words():
@@ -104,4 +112,9 @@ def send_new_words():
         ideas = new_words()
         if ideas:
             valid = True
-            update_ideas_worksheet()
+            update_ideas_worksheet(ideas)
+        elif not ideas:
+            break
+
+
+send_new_words()

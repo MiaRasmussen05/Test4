@@ -94,7 +94,11 @@ def rules():
    or it's game over.""")
     time.sleep(0.6)
     print("\n" + """4. Remeber choose the difficulty level carefully -
-   the higher you go the harder the word is to guess""" + Fore.WHITE)
+   the higher you go the harder the word is to guess""")
+    time.sleep(0.6)
+    print("\n" + """5. Hidden in the scores there is a key. Can you find it -
+   to play the special level. Only one score will allow you to
+   see the key, but you will stille unlock the hidden level!""")
 
 
 def get_word():
