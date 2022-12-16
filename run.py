@@ -102,6 +102,12 @@ def get_word():
     Gets and chooses a random word from words file
     out from which difficulty has been choosen
     """
+#     word_lists = {
+#     'easy': easy_words,
+#     'medium': medium_words,
+#     'hard': hard_words,
+#     'special': special_words
+# }
     word_e = random.choice(easy_words)
     word_m = random.choice(medium_words)
     word_h = random.choice(hard_words)

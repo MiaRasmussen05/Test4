@@ -31,8 +31,8 @@ class Player:
     Player class used to create player object
     containing name and score
     """
-    def __init__(self, name, score):
-        self.name = name
+    def __init__(self, names, score):
+        self.names = names
         self.score = score
 
 
@@ -43,9 +43,9 @@ def create_players(scores):
     """
     players = []
     for row in scores:
-        name = row[0]
+        names = row[0]
         score = row[1]
-        player = Player(name, score)
+        player = Player(names, score)
         players.append(player)
     return players
 
@@ -55,7 +55,7 @@ def calculate_max_lengths(players):
     To calculate the maximum length of player names and scores
     taken from with in spreadsheet
     """
-    max_name = max(len(player.name) for player in players)
+    max_name = max(len(player.names) for player in players)
     max_score = max(len(player.score) for player in players)
     return max_name, max_score
 
@@ -64,6 +64,7 @@ def display_leaderboard():
     """
     Print current leaderboard
     """
+    clear_screen()
     players = create_players(scores)
 
     def get_player_score(player):
@@ -83,15 +84,15 @@ def display_leaderboard():
 
     for i, player in enumerate(top_score):
         if i < 3:
-            print(f"{Fore.GREEN}|| {player.name:<33} || {player.score:^5} ||")
+            print(f"{Fore.GREEN}|| {player.names:<33} || {player.score:^5} ||")
         elif i < 10:
-            print(f"{Fore.WHITE}|| {player.name:<33} || {player.score:^5} ||")
+            print(f"{Fore.WHITE}|| {player.names:<33} || {player.score:^5} ||")
         else:
-            print(f"{Fore.RED}|| {player.name:<33} || {player.score:^5} ||")
-    print("||" + "=" * header_length + "||")
+            print(f"{Fore.RED}|| {player.names:<33} || {player.score:^5} ||")
+    print(f"{Fore.WHITE}||" + "=" * header_length + "||")
 
-#     input("Press enter to return to main menu\n")
-#     clear_screen()
+    input("\nPress enter to return to main menu\n")
+    clear_screen()
 
 
 def clear_screen():
@@ -101,29 +102,43 @@ def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
 
 
-def player_details():
-    """
-    Prompt player to enter their name and location
-    and sets starting score to 0.
-    """
-    player_name = input("What is your name?\n").upper()
-    if player_name.isalpha():
-        player = Player(name=player_name, score=0)
-    else:
-        clear_screen()
-        print(f"{player_name} is not valid")
-    return player
+# def player_details(player_name):
+#     """
+#     Prompt player to enter their name and location
+#     and sets starting score to 0.
+#     """
+#     player_name = run.name()
+#     if player_name.isalpha():
+#         player = Player(name=player_name, run.score=0)
+#     return player
 
 
-def main():
+def update_score(player, new_score):
     """
-    Hi
+    Update the player's score and add the new score
+    to the leaderboard worksheet.
     """
-    player_details()
-    display_leaderboard()
+    player.score = new_score
+    update_review_worksheets(new_score)
 
 
-main()
+def update_review_worksheets(new_score):
+    """
+    Update the leaderboard worksheet with a new score.
+    """
+    worksheet_to_update = SHEET.worksheet("leaderboard")
+    worksheet_to_update.append_row([new_score])
+
+
+# def main():
+#     """
+#     Hi
+#     """
+#     player_details()
+#     display_leaderboard()
+
+
+# main()
 
 
 # """

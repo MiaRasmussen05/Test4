@@ -51,14 +51,12 @@ Up till 5 words is permitted.
 E.g: Virgo,Libra,Aries,Leo,Cancer""")
             ideas = input("\nEnter your word/s here:\n").strip(' ')
             ideas_value = ideas.split(",")
-            # if len(ideas_value) > 2:
-            #     print("\nThe words are valid!\n")
-            # else:
-            #     print("\nThe word is valid!\n")
-            update_ideas_worksheet()
-            break
+            if len(ideas_value) < 1 or len(ideas_value) > 5:
+                print("Please enter between 1 and 5 words separated by commas")
+            else:
+                return True
         elif question == "n":
-            break
+            return False
         else:
             print("                   I am sorry I didn't get that...")
             question = input("""
@@ -67,7 +65,7 @@ E.g: Virgo,Libra,Aries,Leo,Cancer""")
                 print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
         """)
-        return ideas_value
+        # return ideas_value
 
 
 def update_ideas_worksheet():
@@ -75,6 +73,10 @@ def update_ideas_worksheet():
     Receives a list of integers to be inserted into a worksheet
     Update the relevant worksheet with the data provided
     """
+    if len(ideas_value) < 1 or len(ideas_value) > 5:
+        print("\nPlease enter between 1 and 5 words separated by commas.\n")
+        # return
+
     if len(ideas_value) > 2:
         print("Sending words into review...\n")
     else:
@@ -97,4 +99,9 @@ def send_new_words():
     """
     Run functions
     """
-    new_words()
+    valid = False
+    while not valid:
+        ideas = new_words()
+        if ideas:
+            valid = True
+            update_ideas_worksheet()

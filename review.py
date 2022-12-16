@@ -280,4 +280,4 @@ def star_review():
     review()
 
 
-star_review()
+# star_review()
