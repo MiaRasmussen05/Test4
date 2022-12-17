@@ -87,18 +87,22 @@ def rules():
     time.sleep(1)
     print("1. Try to see if you can guess the celestial themed word" + "\n")
     time.sleep(0.6)
-    print("""2. You play by inputing one letter, if the letter is in the word -
+    print("""2. You play by inputing one letter, if the letter is in the word
    then you get another change but is the letter not then you lose a life""")
     time.sleep(0.6)
-    print("\n" + """3. Can you guess the word before the person gets hung -
-   or it's game over.""")
+    print("""
+3. Can you guess the word before the person gets hung or it's game over.""")
     time.sleep(0.6)
-    print("\n" + """4. Remeber choose the difficulty level carefully -
-   the higher you go the harder the word is to guess""")
+    print("""
+4. Remeber choose the difficulty level carefully the higher you go the harder
+   the word is to guess. However the more points you get as well.
+   For each won game - Easy gives 1 point, Medium gives 2 points, 
+   Hard gives 3 points, and the special level gives 4 points""")
     time.sleep(0.6)
-    print("\n" + """5. Hidden in the scores there is a key. Can you find it -
-   to play the special level. Only one score will allow you to
-   see the key, but you will stille unlock the hidden level!""")
+    print("""
+5. Hidden in the scores there is a key. Are you the one that can find it
+   to unlock the special level. Only one score will allow you to see the key,
+   but you will still unlock the hidden level by passing it!""" + Fore.WHITE)
 
 
 def get_word():
@@ -106,12 +110,6 @@ def get_word():
     Gets and chooses a random word from words file
     out from which difficulty has been choosen
     """
-#     word_lists = {
-#     'easy': easy_words,
-#     'medium': medium_words,
-#     'hard': hard_words,
-#     'special': special_words
-# }
     word_e = random.choice(easy_words)
     word_m = random.choice(medium_words)
     word_h = random.choice(hard_words)
@@ -421,7 +419,8 @@ def game_end():
     That is to bad {name}! Want to try again? yes = y, no = n:\n""").strip(' ')
     else:
         play = input(f"""
-       Yes {name}! Want to try again? yes = y, no = n:\n""").lower().strip(' ')
+          Yes {name}! Want to try again? yes = y, no = n:\n
+        """).lower().strip(' ')
 
     while True:
         if play == "y":
@@ -433,7 +432,6 @@ def game_end():
         elif play == "n":
             separator()
             send_new_words()
-            # separator()
             time.sleep(1.2)
             star_review()
             time.sleep(2)
@@ -450,10 +448,11 @@ def game_end():
             time.sleep(5)
             exit()
         else:
-            print("\n" + """
-                Sorry let's try that one more time!""" + "\n")
+            separator()
+            print("""
+                Sorry let's try that one more time!""")
             play = input("""
-              Want to try again? yes = y, no = n:\n""").lower().strip(' ')
+               Want to try again? yes = y, no = n:\n""").lower().strip(' ')
 
 
 def main():

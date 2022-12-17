@@ -290,6 +290,9 @@ def update_review_worksheets():
     worksheet_to_update.append_row([classification, review_text])
 
     print("Thank you for sending in a review!\n")
+    print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+        """)
 
 
 def star_review():

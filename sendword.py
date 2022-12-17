@@ -28,8 +28,6 @@ def new_words():
     Until the string of words is valid the loop reapeats itself.
     1-5 words, separated by commas.
     """
-    # global ideas
-    # global ideas_value
     print("                      Wait one second please!")
     time.sleep(2)
     print("""
@@ -46,34 +44,39 @@ def new_words():
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
             """)
         time.sleep(0.3)
-
-        if question == "y":
-            print("""If more then one word, they should be separated by commas.
+        while True:
+            if question == "y":
+                print("""
+If more then one word, they should be separated by commas.
 Up till 5 words is permitted.
 E.g: Virgo,Libra,Aries,Leo,Cancer""")
-            ideas = input("\nEnter your word/s here:\n").strip(' ')
-            if not re.match(r'^[\w\s]+(,\s*[\w\s]+)*$', ideas):
-                print("Please enter a valid string of words.\n")
-            else:
+                ideas = input("\nEnter your word/s here:\n").strip(' ')
                 ideas_value = ideas.split(",")
-                if 1 <= len(ideas_value) <= 5:
-                    return ideas_value
-                else:
+                if not re.match(r'^[\w\s]+(,\s*[\w\s]+)*$', ideas):
+                    print("Please enter a valid string of words.\n")
                     print("""
-            Please enter between 1 and 5 words, separated by commas\n""")
-        elif question == "n":
-            print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
             """)
-            break
-        else:
-            print("                   I am sorry I didn't get that...")
-            print("""
+                else:
+                    if 1 <= len(ideas_value) <= 5:
+                        return ideas_value
+                    else:
+                        print("""
+        Please enter between 1 and 5 words, separated by commas\n""")
+                        print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
             """)
-            continue
-        return False
-        # return ideas_value
+            elif question == "n":
+                print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+            """)
+                return None
+            else:
+                print("                   I am sorry I didn't get that...")
+                print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+            """)
+                break
 
 
 def update_ideas_worksheet(ideas_value):
@@ -83,8 +86,10 @@ def update_ideas_worksheet(ideas_value):
     """
     if len(ideas_value) < 1 or len(ideas_value) > 5:
         print("\nPlease enter between 1 and 5 words separated by commas.\n")
-        # return
 
+    print("""
+-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
+            """)
     if len(ideas_value) > 2:
         print("\nSending words into review...")
     else:
