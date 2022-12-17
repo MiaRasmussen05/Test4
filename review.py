@@ -39,7 +39,7 @@ def stars():
     print("""
 -.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-*-
         """)
-    print("Please take a second to give us a review between 0 to 3 stars!")
+    print("Please take a second to give us a review between 0 and 3 stars!")
     print("Stars e.g: 2.7")
     classification = input("Give stars here:\n").strip(' ').replace(",", ".")
     validation = validate_data(classification)
@@ -297,7 +297,7 @@ def update_review_worksheets():
 
 def star_review():
     """
-    Hi
+    Function to have both stars and review going right after each other
     """
     stars()
     review()

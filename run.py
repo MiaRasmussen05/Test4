@@ -1,5 +1,5 @@
 """
-Import
+Imports
 """
 import time
 import random
@@ -13,6 +13,10 @@ import gameendart as game_end_art
 from sendword import send_new_words
 from review import star_review
 colorama.init()
+
+
+# Veriables
+score = 0
 
 
 def welcome_to():
@@ -127,12 +131,12 @@ def get_word():
         print("A mistake has happened, try again")
 
 
-score = 0
-
-
 def game():
     """
     Function for the actul game play
+    a random word using single letters guesses with a
+    specific number of lives to get to the correct
+    hidden word.
     """
     global lives
     global score
@@ -150,6 +154,8 @@ def game():
     time.sleep(0.5)
 
     while len(needed_letters) > 0 and lives > 0:
+        # Get different colours for the lives, that changes as they get
+        # closer to 0
         print("Letters already used: ", ' '.join(sorted(guessed_letters)))
         if level == "E":
             if lives >= 4:
@@ -185,6 +191,8 @@ def game():
         for letter in word:
             if letter == ' ':
                 guess.append(' ')
+                # Added append first to show the space between 2 word
+                # Then discard it from the list of needed letters
                 needed_letters.discard(letter)
             elif letter in guessed_letters:
                 guess.append(letter)

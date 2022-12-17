@@ -81,8 +81,9 @@ E.g: Virgo,Libra,Aries,Leo,Cancer""")
 
 def update_ideas_worksheet(ideas_value):
     """
-    Receives a list of integers to be inserted into a worksheet
+    Receives a list of words to be inserted into a worksheet
     Update the relevant worksheet with the data provided
+    Make sure the words are not less then 1 or more then 5.
     """
     if len(ideas_value) < 1 or len(ideas_value) > 5:
         print("\nPlease enter between 1 and 5 words separated by commas.\n")
